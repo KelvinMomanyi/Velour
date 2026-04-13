@@ -15,6 +15,7 @@
         "card_1": {
           "type": "_hero-card",
           "settings": {
+            "image": "shopify://shop_images/F1.jpg",
             "is_large": false,
             "width": 285,
             "height": 396,
@@ -47,6 +48,7 @@
         "card_2": {
           "type": "_hero-card",
           "settings": {
+            "image": "shopify://shop_images/F2.jpg",
             "is_large": true,
             "width": 568,
             "height": 389,
@@ -79,6 +81,7 @@
         "card_3": {
           "type": "_hero-card",
           "settings": {
+            "image": "shopify://shop_images/r12.jpg",
             "is_large": false,
             "width": 285,
             "height": 396,
@@ -111,6 +114,7 @@
         "card_4": {
           "type": "_hero-card",
           "settings": {
+            "image": "shopify://shop_images/r10.jpg",
             "is_large": true,
             "width": 580,
             "height": 213,
@@ -143,6 +147,7 @@
         "card_5": {
           "type": "_hero-card",
           "settings": {
+            "image": "shopify://shop_images/r11.jpg",
             "is_large": true,
             "width": 580,
             "height": 213,
@@ -223,6 +228,7 @@
       ],
       "settings": {
         "color_scheme": "",
+        "uploaded_video": "shopify://files/videos/Ink.mp4",
         "video_url": "https://youtu.be/_9VUPq3SxOc?list=TLGGn1R2QQNDf6owOTEwMjAyNQ",
         "video_file": "Ink.mp4",
         "video_autoplay": true,
