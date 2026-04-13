@@ -333,6 +333,90 @@
     },
     "brands": {
       "type": "brands",
+      "blocks": {
+        "brand_logo_FjcpJW": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/DIOR.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_CRnV68": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/DOLCHE.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_6whBxD": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Hugo.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_Df6JWN": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/ESCADA.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_JHUM3W": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/CHANNEL.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_JWpKz4": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/JoMalone.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_3w7wqa": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Vers.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        },
+        "brand_logo_B8UKpp": {
+          "type": "brand_logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Juliet.png",
+            "logo_alt": "Brand Logo",
+            "logo_link": "",
+            "link_target": "_self"
+          }
+        }
+      },
+      "block_order": [
+        "brand_logo_FjcpJW",
+        "brand_logo_CRnV68",
+        "brand_logo_6whBxD",
+        "brand_logo_Df6JWN",
+        "brand_logo_JHUM3W",
+        "brand_logo_JWpKz4",
+        "brand_logo_3w7wqa",
+        "brand_logo_B8UKpp"
+      ],
       "settings": {
         "color_scheme": "",
         "section_height": 250,
