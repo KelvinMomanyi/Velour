@@ -520,6 +520,7 @@
         "color_scheme": "",
         "heading": "Stay Updated!",
         "description": "Subscribe to our newsletter and get the latest updates right in your inbox.",
+        "image1": "shopify://shop_images/about-banner.jpg",
         "popup_delay": 5,
         "overlay_opacity": 50,
         "overlay_blur": 4
