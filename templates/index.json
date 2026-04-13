@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -9,17 +18,25 @@
             "is_large": false,
             "width": 285,
             "height": 396,
-            "svg_placeholder": "product-1"
+            "svg_placeholder": "product-1",
+            "link": ""
           },
           "blocks": {
             "title": {
               "type": "_hero-title",
               "settings": {
-                "title": "Find the best"
-              }
+                "title": "Find the best",
+                "link": ""
+              },
+              "blocks": {}
             },
             "button": {
-              "type": "_hero-button"
+              "type": "_hero-button",
+              "settings": {
+                "label": "Shop Now",
+                "link": ""
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -33,17 +50,25 @@
             "is_large": true,
             "width": 568,
             "height": 389,
-            "svg_placeholder": "product-2"
+            "svg_placeholder": "product-2",
+            "link": ""
           },
           "blocks": {
             "title": {
               "type": "_hero-title",
               "settings": {
-                "title": "Find the best"
-              }
+                "title": "Find the best",
+                "link": ""
+              },
+              "blocks": {}
             },
             "button": {
-              "type": "_hero-button"
+              "type": "_hero-button",
+              "settings": {
+                "label": "Shop Now",
+                "link": ""
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -57,17 +82,25 @@
             "is_large": false,
             "width": 285,
             "height": 396,
-            "svg_placeholder": "product-3"
+            "svg_placeholder": "product-3",
+            "link": ""
           },
           "blocks": {
             "title": {
               "type": "_hero-title",
               "settings": {
-                "title": "Find the best"
-              }
+                "title": "Find the best",
+                "link": ""
+              },
+              "blocks": {}
             },
             "button": {
-              "type": "_hero-button"
+              "type": "_hero-button",
+              "settings": {
+                "label": "Shop Now",
+                "link": ""
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -81,17 +114,25 @@
             "is_large": true,
             "width": 580,
             "height": 213,
-            "svg_placeholder": "product-4"
+            "svg_placeholder": "product-4",
+            "link": ""
           },
           "blocks": {
             "title": {
               "type": "_hero-title",
               "settings": {
-                "title": "Find the best"
-              }
+                "title": "Find the best",
+                "link": ""
+              },
+              "blocks": {}
             },
             "button": {
-              "type": "_hero-button"
+              "type": "_hero-button",
+              "settings": {
+                "label": "Shop Now",
+                "link": ""
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -105,17 +146,25 @@
             "is_large": true,
             "width": 580,
             "height": 213,
-            "svg_placeholder": "product-5"
+            "svg_placeholder": "product-5",
+            "link": ""
           },
           "blocks": {
             "title": {
               "type": "_hero-title",
               "settings": {
-                "title": "Find the best"
-              }
+                "title": "Find the best",
+                "link": ""
+              },
+              "blocks": {}
             },
             "button": {
-              "type": "_hero-button"
+              "type": "_hero-button",
+              "settings": {
+                "label": "Shop Now",
+                "link": ""
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -132,7 +181,14 @@
         "card_5"
       ],
       "settings": {
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-1",
+        "title1": "Product",
+        "title2": "Product",
+        "title3": "Product",
+        "title4": "Product",
+        "title5": "Product",
+        "btn_label": "Shop Now",
+        "link": ""
       }
     },
     "collection": {
@@ -153,7 +209,10 @@
         "animated_text_1": {
           "type": "animated_text",
           "settings": {
-            "animation_text": "scent that you can wear"
+            "animation_text": "scent that you can wear",
+            "animation_speed": 1200,
+            "animation_blur": 10,
+            "animation_scale": 3
           }
         }
       },
@@ -163,12 +222,24 @@
         "animated_text_1"
       ],
       "settings": {
-        "video_url": "https://youtu.be/_9VUPq3SxOc?list=TLGGn1R2QQNDf6owOTEwMjAyNQ"
+        "color_scheme": "",
+        "video_url": "https://youtu.be/_9VUPq3SxOc?list=TLGGn1R2QQNDf6owOTEwMjAyNQ",
+        "video_file": "Ink.mp4",
+        "video_autoplay": true,
+        "video_loop": true,
+        "video_muted": true,
+        "text_position": "60%",
+        "animation_scale": 3
       }
     },
     "featured_collection": {
       "type": "featured-collection",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "title": "Popular Products",
+        "collection": "",
+        "products_to_show": 8
+      }
     },
     "banner": {
       "type": "banner",
@@ -183,20 +254,23 @@
               "type": "_banner-subheading",
               "settings": {
                 "subheading": "Perfumes in distinctive notes to match every style"
-              }
+              },
+              "blocks": {}
             },
             "banner_heading_1": {
               "type": "_banner-heading",
               "settings": {
                 "heading": "25% off Everything"
-              }
+              },
+              "blocks": {}
             },
             "banner_button_1": {
               "type": "_banner-button",
               "settings": {
                 "button_label": "Shop Now",
                 "button_url": "shopify://collections/all"
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -215,20 +289,23 @@
               "type": "_banner-subheading",
               "settings": {
                 "subheading": "NEW COLLECTION"
-              }
+              },
+              "blocks": {}
             },
             "banner_heading_2": {
               "type": "_banner-heading",
               "settings": {
                 "heading": "Explore Our Latest Scentra Collection"
-              }
+              },
+              "blocks": {}
             },
             "banner_button_2": {
               "type": "_banner-button",
               "settings": {
                 "button_label": "Explore More",
                 "button_url": "shopify://collections/all"
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -249,19 +326,44 @@
     "brands": {
       "type": "brands",
       "settings": {
-        "subtitle1": "NEW COLLECTION",
-        "title1": "Discover New Sneaker Collection",
-        "btn_label1": "Explore More",
-        "button_url1": "shopify://collections/all",
-        "title2": "25% off Everything",
-        "description": "Sneakers in a range of styles and colors for every taste",
-        "btn_label2": "Shop Now",
-        "button_url2": "shopify://collections/all"
+        "color_scheme": "",
+        "section_height": 250,
+        "section_height_mobile": 180,
+        "section_padding_vertical": 50,
+        "show_title": true,
+        "section_title": "Our Brands",
+        "title_font_size": 36,
+        "title_font_size_mobile": 28,
+        "title_font_family": "var(--ff-mr_de_haviland)",
+        "title_font_weight": "300",
+        "title_margin_bottom": 40,
+        "logo_width": 100,
+        "logo_width_mobile": 80,
+        "logo_gap": 80,
+        "logo_gap_mobile": 40,
+        "logo_opacity": 1,
+        "enable_grayscale": true,
+        "grayscale_amount": 100,
+        "enable_hover_effect": true,
+        "hover_scale": 11,
+        "hover_transition_speed": 0.3,
+        "enable_auto_scroll": true,
+        "scroll_speed": 1,
+        "transition_speed": 0.5,
+        "pause_on_hover": true
       }
     },
     "poster": {
       "type": "poster",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "section_height": 600,
+        "text_color": "#ffffff",
+        "text_1": "DESIGNER FRAGRANCES",
+        "text_2": "NICHE PERFUMES",
+        "text_3": "SUBSCRIBE +",
+        "text_4": "EXPLORE MORE ↗"
+      }
     },
     "services": {
       "type": "brand-excellence",
@@ -270,28 +372,32 @@
           "type": "service_card",
           "settings": {
             "title": "Fast Shipping",
-            "description": "Global delivery in 3-5 business days."
+            "description": "Global delivery in 3-5 business days.",
+            "link": ""
           }
         },
         "payments": {
           "type": "service_card",
           "settings": {
             "title": "Secure Payments",
-            "description": "Your transactions are protected and encrypted."
+            "description": "Your transactions are protected and encrypted.",
+            "link": ""
           }
         },
         "returns": {
           "type": "service_card",
           "settings": {
             "title": "Easy Returns",
-            "description": "30-day hassle-free return policy."
+            "description": "30-day hassle-free return policy.",
+            "link": ""
           }
         },
         "support": {
           "type": "service_card",
           "settings": {
             "title": "24/7 Support",
-            "description": "Dedicated team to assist you anytime."
+            "description": "Dedicated team to assist you anytime.",
+            "link": ""
           }
         }
       },
@@ -301,11 +407,39 @@
         "returns",
         "support"
       ],
-      "settings": {}
+      "settings": {
+        "color_scheme": ""
+      }
     },
     "gallery": {
       "type": "gallery",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "title_1": "Scentra Essence",
+        "tag_1": "Luxury, Signature",
+        "link_1": "",
+        "title_2": "Blooming Petals",
+        "tag_2": "Floral, Fresh",
+        "link_2": "",
+        "title_3": "Midnight Noir",
+        "tag_3": "Bold, Evening",
+        "link_3": "",
+        "title_4": "Citrus Mist",
+        "tag_4": "Fresh, Daily Wear",
+        "link_4": "",
+        "title_5": "Golden Aura",
+        "tag_5": "Warm, Oriental",
+        "link_5": "",
+        "title_6": "Ocean Breeze",
+        "tag_6": "Aqua, Refreshing",
+        "link_6": "",
+        "title_7": "Rose Éclat",
+        "tag_7": "Romantic, Floral",
+        "link_7": "",
+        "title_8": "Vanilla Secrets",
+        "tag_8": "Sweet, Cozy",
+        "link_8": ""
+      }
     },
     "offer": {
       "type": "offer",
@@ -313,6 +447,7 @@
         "offer_image_1": {
           "type": "offer_image",
           "settings": {
+            "image": "shopify://shop_images/r9.jpg",
             "placeholder": "lifestyle-1",
             "alt_text": "Offer products"
           }
@@ -320,6 +455,7 @@
         "offer_image_2": {
           "type": "offer_image",
           "settings": {
+            "image": "shopify://shop_images/r4.jpg",
             "placeholder": "lifestyle-2",
             "alt_text": "Offer products"
           }
@@ -369,16 +505,25 @@
       "type": "blog",
       "settings": {
         "heading_text": "Explore Our Blog",
-        "blog_type": ""
+        "blog_type": "news"
       }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "color_scheme": ""
+      }
     },
     "newsletter-popup": {
       "type": "newsletter-popup",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "heading": "Stay Updated!",
+        "description": "Subscribe to our newsletter and get the latest updates right in your inbox.",
+        "popup_delay": 5,
+        "overlay_opacity": 50,
+        "overlay_blur": 4
+      }
     },
     "175551709675a5d6d4": {
       "type": "apps",

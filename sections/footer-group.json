@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Footer",
   "type": "footer",
@@ -8,6 +17,7 @@
         "brand_info": {
           "type": "brand_info",
           "settings": {
+            "logo_width": 100,
             "logo_text": "Scentra",
             "show_social": true,
             "show_follow_on_shop": true,
@@ -25,13 +35,22 @@
           "type": "link_list",
           "settings": {
             "title": "About Us",
-            "menu": "footer"
+            "menu": "main-menu"
           }
         },
         "newsletter": {
           "type": "newsletter",
           "settings": {
-            "title": "Newsletter"
+            "title": "Newsletter",
+            "description": "",
+            "placeholder": "Your email address",
+            "show_footer_links": true,
+            "terms_link": "",
+            "terms_text": "Terms and Conditions",
+            "policy_link": "",
+            "policy_text": "Policy",
+            "map_link": "",
+            "map_text": "Map"
           }
         }
       },
@@ -42,6 +61,10 @@
         "newsletter"
       ],
       "settings": {
+        "color_scheme": "",
+        "copyright_text": "Scentra",
+        "show_powered_by": true,
+        "payment_enable": true
       }
     }
   },
