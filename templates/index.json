@@ -464,7 +464,7 @@
         "shipping": {
           "type": "service_card",
           "settings": {
-            "image": "shopify://shop_images/Y0997193_C099700665_E01_ZHC.webp",
+            "image": "shopify://shop_images/dolche1.jpg",
             "title": "Fast Shipping",
             "description": "Global delivery in 3-5 business days.",
             "link": ""
