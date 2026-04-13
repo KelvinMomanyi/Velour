@@ -1,0 +1,218 @@
+{%- doc -%}
+  Renders a product media component.
+
+  @param {object} media - The product media object.
+  @param {boolean} [preview_image_only] - Renders only the preview image without controls.
+  @param {string} [widths] - Image widths for responsive images.
+  @param {string} [sizes] - Image sizes for responsive images.
+  @param {string} [loading] - The loading attribute for the image.
+  @param {object} [block] - The block object.
+  @param {object} [section] - The section object.
+  @param {object} [selected_product] - The currently selected product.
+  @param {boolean} [first_3d_model] - Indicates if this is the first 3D model.
+  @param {boolean} [is_main_product_media] - Indicates if this is the main product image.
+
+  @example
+  {% render 'product-media', media: media, preview_image_only: false, loading: 'lazy' %}
+{%- enddoc -%}
+
+{% liquid
+  assign widths = widths | default: '240, 352, 832, 1200, 1600, 1920, 2560, 3840'
+%}
+
+<div
+  class="product-media"
+  style="--ratio: {{ media.aspect_ratio }}"
+  data-media-id="{{ media.id }}"
+>
+  {% liquid
+    assign high_res_url = media.preview_image | image_url: width: 3840
+    assign image_loading = loading
+    assign fetch_priority = 'auto'
+    assign preload_image = false
+    if image_loading == blank
+      assign image_loading = 'lazy'
+    endif
+    if is_main_product_media
+      assign image_loading = 'eager'
+      assign fetch_priority = 'high'
+      assign preload_image = true
+    endif
+    assign focal_point_style = '--focal-point: ' | append: media.presentation.focal_point | append: ';'
+  %}
+  {{
+    media.preview_image
+    | image_url: width: 3840
+    | image_tag:
+      widths: widths,
+      alt: media.alt,
+      sizes: sizes,
+      loading: image_loading,
+      class: 'product-media__image',
+      transitionToProduct: settings.transition_to_main_product,
+      data_max_resolution: high_res_url,
+      fetchpriority: fetch_priority,
+      preload: preload_image,
+      style: focal_point_style
+  }}
+
+  {% unless preview_image_only %}
+    {%- case media.media_type -%}
+      {% when 'model' %}
+        <product-model
+          data-media-id="{{ media.id }}"
+        >
+          <button
+            class="button deferred-media__poster-button button-unstyled"
+            ref="deferredMediaPlayButton"
+            on:click="/showDeferredMedia"
+          >
+            {{
+              media.preview_image
+              | image_url: width: 3840
+              | image_tag:
+                widths: widths,
+                alt: media.alt,
+                sizes: sizes,
+                loading: image_loading,
+                class: 'deferred-media__poster-image',
+                fetchpriority: fetch_priority,
+                preload: preload_image
+             }}
+            <span class="deferred-media__poster-icon">
+              <span class="visually-hidden">{{ 'accessibility.play_model' | t }}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                class="icon"
+                fill="none"
+                viewBox="0 0 18 21"
+              >
+                <path d="M7.67998 20.629L1.28002 16.723C0.886205 16.4784 0.561675 16.1368 0.337572 15.731C0.113468 15.3251 -0.00274623 14.8686 -1.39464e-05 14.405V6.59497C-0.00238367 6.13167 0.113819 5.6755 0.33751 5.26978C0.561202 4.86405 0.884959 4.52227 1.278 4.27698L7.67796 0.377014C8.07524 0.131403 8.53292 0.000877102 8.99999 9.73346e-08C9.46678 -0.000129605 9.92446 0.129369 10.322 0.374024V0.374024L16.722 4.27399C17.1163 4.51985 17.4409 4.86287 17.6647 5.27014C17.8885 5.67742 18.0039 6.13529 18 6.59998V14.409C18.0026 14.8725 17.8864 15.3289 17.6625 15.7347C17.4386 16.1405 17.1145 16.4821 16.721 16.727L10.321 20.633C9.92264 20.8742 9.46565 21.0012 8.99999 21C8.53428 20.9998 8.07761 20.8714 7.67998 20.629V20.629ZM8.72398 2.078L2.32396 5.97803C2.22303 6.04453 2.14066 6.13551 2.08452 6.24255C2.02838 6.34959 2.00031 6.46919 2.00298 6.59003V14.4C2.00026 14.5205 2.02818 14.6396 2.08415 14.7463C2.14013 14.853 2.22233 14.9438 2.32298 15.01L7.99999 18.48V10.919C8.00113 10.5997 8.08851 10.2867 8.25292 10.0129C8.41732 9.73922 8.65267 9.51501 8.93401 9.36401L15.446 5.841L9.28001 2.08002C9.19614 2.02738 9.09901 1.99962 8.99999 2C8.90251 1.99972 8.8069 2.02674 8.72398 2.078V2.078Z" fill="currentColor" />
+              </svg>
+            </span>
+          </button>
+
+          <template>
+            {% # Should I be using media_tag here instead like on Dawn? 🤔 %}
+            {{ media | model_viewer_tag }}
+          </template>
+        </product-model>
+        <button
+          class="button button-secondary button-shopify-xr"
+          type="button"
+          data-shopify-xr
+          data-shopify-model3d-id="{{ media.id }}"
+          data-shopify-title="{{ selected_product.title | escape }}"
+          data-shopify-xr-hidden
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+            class="icon icon-default"
+            fill="none"
+            viewBox="0 0 18 21"
+          >
+            <path d="M7.67998 20.629L1.28002 16.723C0.886205 16.4784 0.561675 16.1368 0.337572 15.731C0.113468 15.3251 -0.00274623 14.8686 -1.39464e-05 14.405V6.59497C-0.00238367 6.13167 0.113819 5.6755 0.33751 5.26978C0.561202 4.86405 0.884959 4.52227 1.278 4.27698L7.67796 0.377014C8.07524 0.131403 8.53292 0.000877102 8.99999 9.73346e-08C9.46678 -0.000129605 9.92446 0.129369 10.322 0.374024V0.374024L16.722 4.27399C17.1163 4.51985 17.4409 4.86287 17.6647 5.27014C17.8885 5.67742 18.0039 6.13529 18 6.59998V14.409C18.0026 14.8725 17.8864 15.3289 17.6625 15.7347C17.4386 16.1405 17.1145 16.4821 16.721 16.727L10.321 20.633C9.92264 20.8742 9.46565 21.0012 8.99999 21C8.53428 20.9998 8.07761 20.8714 7.67998 20.629V20.629ZM8.72398 2.078L2.32396 5.97803C2.22303 6.04453 2.14066 6.13551 2.08452 6.24255C2.02838 6.34959 2.00031 6.46919 2.00298 6.59003V14.4C2.00026 14.5205 2.02818 14.6396 2.08415 14.7463C2.14013 14.853 2.22233 14.9438 2.32298 15.01L7.99999 18.48V10.919C8.00113 10.5997 8.08851 10.2867 8.25292 10.0129C8.41732 9.73922 8.65267 9.51501 8.93401 9.36401L15.446 5.841L9.28001 2.08002C9.19614 2.02738 9.09901 1.99962 8.99999 2C8.90251 1.99972 8.8069 2.02674 8.72398 2.078V2.078Z" fill="currentColor" />
+          </svg>
+          {{ 'actions.view_in_your_space' | t }}
+        </button>
+
+        {%- if first_3d_model -%}
+          <script
+            type="application/json"
+            id="ProductModelJSON-{{ selected_product.id }}"
+          >
+            {{ selected_product.media | where: 'media_type', 'model' | json }}
+          </script>
+        {%- endif -%}
+      {% when 'video', 'external_video' %}
+        {%- render 'video',
+          video: media,
+          video_loop: block.settings.video_loop,
+          widths: widths,
+          sizes: sizes,
+          loading: loading,
+          disable_controls: true,
+          section_id: section.id
+        -%}
+    {% endcase %}
+  {% endunless %}
+</div>
+
+{% stylesheet %}
+  .product-media {
+    aspect-ratio: var(--gallery-aspect-ratio, var(--ratio));
+    min-height: 0;
+    min-width: 0;
+  }
+
+  .product-media__image {
+    object-position: var(--focal-point, center center);
+  }
+
+  /*** Media border-radius feature ****/
+  @media screen and (min-width: 750px) {
+    .media-gallery--carousel slideshow-container,
+    .media-gallery--grid .product-media > * {
+      border-radius: var(--media-radius, 0);
+      overflow: hidden;
+    }
+
+    /* When the CAROUSEL is on the LEFT side */
+    .product-information:not(.product-information--media-right)
+      .media-gallery--carousel.media-gallery--extend
+      slideshow-container {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    /* When the CAROUSEL is on the RIGHT side */
+    .product-information.product-information--media-right
+      .media-gallery--carousel.media-gallery--extend
+      slideshow-container {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /* When the GRID is on the LEFT side */
+    .product-information:not(.product-information--media-right) {
+      /* One column */
+      .media-gallery--grid.media-gallery--extend:not(.media-gallery--two-column) .product-media > *,
+      /* Two column, small first image */
+      .media-gallery--grid.media-gallery--extend.media-gallery--two-column:not(.media-gallery--large-first-image)
+        .product-media-container:nth-of-type(odd)
+        .product-media
+        > *,
+      /* Two column, large first image */
+      .media-gallery--grid.media-gallery--extend.media-gallery--two-column.media-gallery--large-first-image
+        .product-media-container:is(:first-of-type, :nth-of-type(even))
+        .product-media
+        > * {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+
+    /* When the GRID is on the RIGHT side */
+    .product-information.product-information--media-right {
+      /* One column */
+      .media-gallery--grid.media-gallery--extend:not(.media-gallery--two-column) .product-media > *,
+      /* Two column, small first image */
+      .media-gallery--grid.media-gallery--extend.media-gallery--two-column:not(.media-gallery--large-first-image)
+        .product-media-container:nth-of-type(even)
+        .product-media
+        > *,
+      /* Two column, large first image */
+      .media-gallery--grid.media-gallery--extend.media-gallery--two-column.media-gallery--large-first-image
+        .product-media-container:is(:first-of-type, :nth-of-type(odd))
+        .product-media
+        > * {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+{% endstylesheet %}

@@ -1,0 +1,97 @@
+<section class="section recommended color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}" aria-label="recommended post">
+    <div class="container">
+
+      <p class="section-subtitle">
+        <strong class="strong">Recommended</strong>
+      </p>
+
+      <ul class="grid-list">
+       {% assign selected_blog_handle = section.settings.blog_type %}
+        {% if selected_blog_handle %}
+          {% for article in blogs[selected_blog_handle].articles %}
+            <li>
+              <div class="blog-card">
+    
+                <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="{{ article.image | image_url: width: 300 }}" width="300" height="360" loading="lazy"
+                    alt="The trick to getting more done is to have the freedom to roam around " class="img-cover">
+                </figure>
+    
+                <div class="card-content">
+    
+                  <h3 class="h4">
+                    <a href="#" class="card-title hover:underline">
+                      {{ article.title }}
+                    </a>
+                  </h3>
+    
+                </div>
+    
+              </div>
+            </li>
+          {% endfor %}
+        {% else %}    
+        {% for article in blogs['recommended'].articles %}
+          <li>
+          <div class="blog-card">
+
+            <figure class="card-banner img-holder" style="--width: 300; --height: 360;">
+                  <img src="{{ article.image | image_url: width: 600 }}" 
+                    srcset="{{ article.image | image_url: width: 300 }} 300w,
+                            {{ article.image | image_url: width: 600 }} 600w"
+                    sizes="(max-width: 480px) 100vw, 300px"
+                    width="300" height="360" loading="lazy"
+                    alt="{{ article.title | escape }}" class="img-cover">
+            </figure>
+
+            <div class="card-content">
+
+              <h3 class="h4">
+                <a href="#" class="card-title hover:underline">
+                  {{ article.title }}
+                </a>
+              </h3>
+
+            </div>
+
+          </div>
+          </li>
+        {% endfor  %} 
+    {%  endif %}
+      </ul>
+
+    </div>
+  </section>
+
+
+{% schema %}
+  {
+    "name": "Featured blog",
+    "settings": [
+        {
+          "type": "color_scheme","id": "color_scheme","label": "Color scheme","default": "scheme-1"
+        },
+        {
+        "type":"text",
+        "id":"heading_text",
+        "label":"Blog Heading",
+        "default":"More to Discover"
+        },
+        {
+        "type": "blog",
+        "id": "blog_type",
+        "label": "Select Blog Category"
+      }
+    ],
+    "blocks": [],
+    "presets": [
+        {
+        "name": "Featured blog",
+        "category": "Storytelling"
+        }
+    ]
+  }
+{% endschema %}
+
+
+

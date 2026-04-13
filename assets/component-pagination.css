@@ -1,0 +1,83 @@
+.pagination-wrapper {
+    margin-top: 4rem;
+}
+
+@media screen and (min-width: 990px) {
+    .pagination-wrapper {
+        margin-top: 5rem;
+    }
+}
+
+.pagination__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pagination__list>li {
+    flex: 1 0 4.4rem;
+    max-width: 4.4rem;
+}
+
+.pagination__item {
+    color: var(--color-text, #121212);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 4.4rem;
+    width: 100%;
+    padding: 0;
+    text-decoration: none;
+    font-family: var(--ff-roboto, sans-serif);
+    font-size: 1.4rem;
+    border-radius: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+a.pagination__item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+a.pagination__item:hover::after {
+    height: 0.1rem;
+}
+
+.pagination__item .icon {
+    height: 0.6rem;
+}
+
+.pagination__item--current {
+    color: var(--tan-crayola, #c9a96e);
+    font-weight: 600;
+}
+
+.pagination__item--current::after {
+    height: 2px;
+}
+
+.pagination__item--current::after,
+.pagination__item:hover::after {
+    content: '';
+    display: block;
+    width: 2rem;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: currentColor;
+}
+
+/* Rotation removed as we use specific directional icons */
+.pagination__item--next:hover .icon {
+    transform: scale(1.07);
+}
+
+.pagination__item--prev:hover .icon {
+    transform: scale(1.07);
+}
+
+.pagination__item-arrow:hover::after {
+    display: none;
+}

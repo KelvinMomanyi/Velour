@@ -1,0 +1,236 @@
+<!-- 
+  - #BLOG
+-->
+
+<section class="section blog" id="blog" aria-label="blog" data-aos="fade-up">
+  <div class="container">
+    {%- liquid
+      assign selected_blog = section.settings.blog_type
+      assign fallback_blog = blogs['news']
+      
+      assign blog_url = '#'
+      if selected_blog != blank
+        assign blog_url = selected_blog.url
+      elsif fallback_blog != blank
+        assign blog_url = fallback_blog.url
+      endif
+    -%}
+
+    <div class="title-wrapper">
+      <h2 class="h2 section-title">{{ section.settings.heading_text }}</h2>
+
+      <a href="{{ blog_url }}" class="btn-link">
+        <span class="span">View All</span>
+        {% render 'icon-scentra', icon: 'arrow-forward' %}
+      </a>
+    </div>
+
+    <ul class="grid-list">
+
+      {% if selected_blog != blank and selected_blog.articles_count > 0 %}
+        {%- for article in selected_blog.articles limit: 3 -%}
+          <li>
+            <div class="blog-card">
+
+              <div class="card-banner img-holder" style="--width: 374; --height: 243;">
+                {% if article.image %}
+                  <img
+                    src="{{ article.image | image_url: width: 748 }}"
+                    srcset="{{ article.image | image_url: width: 374 }} 374w,
+                            {{ article.image | image_url: width: 748 }} 748w"
+                    sizes="(max-width: 575px) 100vw, (max-width: 992px) 50vw, 33vw"
+                    alt="{{ article.title | escape }}"
+                    class="img-cover"
+                    width="374"
+                    height="243"
+                    loading="lazy"
+                  >
+                {% else %}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'img-cover' }}
+                {% endif %}
+
+                <a href="{{ article.url }}" class="card-btn">
+                  <span class="span">Read more</span>
+                  {% render 'icon-scentra', icon: 'add' %}
+                </a>
+              </div>
+
+              <div class="card-content">
+                <h3 class="h3">
+                  <a href="{{ article.url }}" class="card-title">{{ article.title }}</a>
+                </h3>
+
+                <ul class="card-meta-list">
+
+                  <li class="card-meta-item">
+                    <time class="card-meta-text" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                      {{ article.published_at | date: '%B %d, %Y' }}
+                    </time>
+                  </li>
+
+                  <li class="card-meta-item">
+                    <a href="{{ article.url }}" class="card-meta-text">{{ article.author }}</a>
+                  </li>
+
+                  {% if article.tags.size > 0 %}
+                    <li class="card-meta-item">
+                      in <a href="{{ selected_blog.url }}/tagged/{{ article.tags.first | handle }}" class="card-meta-text">{{ article.tags.first }}</a>
+                    </li>
+                  {% endif %}
+
+                </ul>
+
+              </div>
+
+            </div>
+          </li>
+        {%- endfor -%}
+      {% else %}
+        <!-- Display default placeholder blog cards -->
+        <li>
+          <div class="blog-card">
+
+            <div class="card-banner img-holder" style="--width: 374; --height: 243;">
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'img-cover' }}
+
+              <a href="#" class="card-btn">
+                <span class="span">Read more</span>
+                {% render 'icon-scentra', icon: 'add' %}
+              </a>
+            </div>
+
+            <div class="card-content">
+
+              <h3 class="h3">
+                <a href="#" class="card-title">Understanding Scentra Families and Their Unique Appeal</a>
+              </h3>
+
+              <ul class="card-meta-list">
+
+                <li class="card-meta-item">
+                  <time class="card-meta-text" datetime="2022-09-27">November 27, 2022</time>
+                </li>
+
+                <li class="card-meta-item">
+                  <a href="#" class="card-meta-text">Admin</a>
+                </li>
+
+                <li class="card-meta-item">
+                  in <a href="#" class="card-meta-text">deco</a>
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+        </li>
+
+        <li>
+          <div class="blog-card">
+
+            <div class="card-banner img-holder" style="--width: 374; --height: 243;">
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'img-cover' }}
+
+              <a href="#" class="card-btn">
+                <span class="span">Read more</span>
+                {% render 'icon-scentra', icon: 'add' %}
+              </a>
+            </div>
+
+            <div class="card-content">
+
+              <h3 class="h3">
+                <a href="#" class="card-title">The Art of Choosing the Perfect Scentra</a>
+              </h3>
+
+              <ul class="card-meta-list">
+
+                <li class="card-meta-item">
+                  <time class="card-meta-text" datetime="2022-09-25">November 25, 2022</time>
+                </li>
+
+                <li class="card-meta-item">
+                  <a href="#" class="card-meta-text">Admin</a>
+                </li>
+
+                <li class="card-meta-item">
+                  in <a href="#" class="card-meta-text">deco</a>
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+        </li>
+
+        <li>
+          <div class="blog-card">
+
+            <div class="card-banner img-holder" style="--width: 374; --height: 243;">
+              {{ 'collection-1' | placeholder_svg_tag: 'img-cover' }}
+
+              <a href="#" class="card-btn">
+                <span class="span">Read more</span>
+                {% render 'icon-scentra', icon: 'add' %}
+              </a>
+            </div>
+
+            <div class="card-content">
+
+              <h3 class="h3">
+                <a href="#" class="card-title">How to Store and Apply Your Piece for Long-Lasting Use</a>
+              </h3>
+
+              <ul class="card-meta-list">
+
+                <li class="card-meta-item">
+                  <time class="card-meta-text" datetime="2022-09-18">November 18, 2022</time>
+                </li>
+
+                <li class="card-meta-item">
+                  <a href="#" class="card-meta-text">Admin</a>
+                </li>
+
+                <li class="card-meta-item">
+                  in <a href="#" class="card-meta-text">deco</a>
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+        </li>
+      {% endif %}
+    </ul>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+     {
+      "type":"text",
+      "id":"heading_text",
+      "label":"Blog Heading",
+      "default":"Explore Our Blog"
+     },
+     {
+      "type": "blog",
+      "id": "blog_type",
+      "label": "Select Blog Category"
+     }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Blog",
+      "category": "Storytelling"
+    }
+  ]
+}
+{% endschema %}

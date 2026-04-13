@@ -1,0 +1,40 @@
+{% comment %}
+    Renders the pickup availability for a product variant.
+    Accepts:
+    - product: {Object} Product object.
+    - variant: {Object} Product variant object.
+
+    Usage:
+    {% render 'pickup-availability', product: product, variant: variant %}
+{% endcomment %}
+
+{%- assign pick_up_availabilities = variant.store_availabilities | where: 'pick_up_enabled', true -%}
+
+<pickup-availability
+  class="product__pickup-availability"
+  {% if variant.available and pick_up_availabilities.size > 0 %} available{% endif %}
+  data-root-url="{{ routes.root_url }}"
+  data-variant-id="{{ variant.id }}"
+  data-product-page-color-scheme="color-{{ section.settings.color_scheme }}"
+>
+  <template>
+    <pickup-availability-preview class="pickup-availability-preview">
+        {% render 'icon-scentra', icon: 'close-circle' %}
+        <div class="pickup-availability-info">
+            <p class="caption-large">{{ 'products.product.pickup_availability.unavailable' | t }}</p>
+            <button class="pickup-availability-button link link--text underlined-link">{{ 'products.product.pickup_availability.refresh' | t }}</button>
+        </div>
+    </pickup-availability-preview>
+  </template>
+</pickup-availability>
+
+{%- if request.design_mode -%}
+  <div style="padding: 1rem; border: 1px dashed #ccc; margin-top: 1rem;">
+    <p style="margin: 0; font-size: 0.9rem; color: #666;">
+      <strong>Pickup Availability Block</strong><br>
+      This block will only appear on the live site if the product has inventory at a location with local pickup enabled.
+    </p>
+  </div>
+{%- endif -%}
+
+<script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>

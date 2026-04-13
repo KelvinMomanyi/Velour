@@ -1,0 +1,72 @@
+ <!-- 
+        - #NEWSLETTER
+      -->
+
+      <section class="section newsletter color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}" aria-label="newsletter" data-aos="fade-up">
+        <div class="container">
+
+          <div class="newsletter-card">
+
+            <div class="card-content">
+              <h2 class="h2 section-title">Our Newsletter</h2>
+
+              <p class="section-text">
+                Subscribe our newsletter and get discount 50% off
+              </p>
+            </div>
+
+            {%- form 'customer', class: 'card-form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input
+                type="email"
+                name="contact[email]"
+                placeholder="Your email address"
+                required
+                class="email-field"
+                aria-label="Email address"
+                value="{{ form.email }}"
+              >
+
+              <button type="submit" class="newsletter-btn" aria-label="subscribe">
+                {% render 'icon-scentra', icon: 'arrow-forward' %}
+              </button>
+
+              {%- if form.posted_successfully? -%}
+                <p class="newsletter-status" role="status">Thanks for subscribing.</p>
+              {%- elsif form.errors -%}
+                <div class="newsletter-status newsletter-status--error">
+                  {{ form.errors | default_errors }}
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+
+          </div>
+
+        </div>
+      </section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "scheme-1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Hero Image"
+      }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Newsletter",
+      "category": "Marketing"
+    }
+  ]
+}
+{% endschema %}

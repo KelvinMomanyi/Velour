@@ -1,0 +1,28 @@
+{% comment %}
+  Follow on Shop Button
+  Allows customers to follow the store in the Shop app
+  Required feature for Theme Store
+  
+  Parameters:
+  - button_size: 'small', 'medium', or 'large' (default: 'medium')
+{% endcomment %}
+
+{%- liquid
+  assign size = button_size | default: 'medium'
+-%}
+
+<div class="follow-on-shop">
+  {{ shop | login_button: action: 'follow', size: size }}
+</div>
+
+<style>
+  .follow-on-shop {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .follow-on-shop .shopify-follow-button {
+    /* Do not modify branded button colors */
+  }
+</style>

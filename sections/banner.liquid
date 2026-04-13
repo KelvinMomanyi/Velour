@@ -1,0 +1,463 @@
+
+{% comment %} data-section {% endcomment %}
+<section class="section banner color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}" aria-label="banner" data-aos="fade-up">
+    <div class="container">
+        <ul class="banner-list">
+            {% if section.blocks.size > 0 %}
+              {% content_for 'blocks' %}
+            {% else %}
+              <li>
+                <div class="banner-card banner-card-1 has-before hover:shine">
+                  {% if section.settings.legacy_subheading2 != blank %}
+                    <p class="card-subtitle">{{ section.settings.legacy_subheading2 }}</p>
+                  {% elsif section.settings.description != blank %}
+                    <p class="card-subtitle">{{ section.settings.description }}</p>
+                  {% endif %}
+                  {% if section.settings.title2 != blank %}
+                    <h2 class="h2 card-title">{{ section.settings.title2 }}</h2>
+                  {% endif %}
+                  {% if section.settings.btn_label2 != blank %}
+                    <a {% if section.settings.button_url2 != blank %}
+                        href="{{ section.settings.button_url2 }}"
+                      {% else %}
+                        role="link" aria-disabled="true"
+                      {% endif %}
+                      class="btn btn-primary"
+                      style="cursor:pointer;"
+                    >
+                      {{ section.settings.btn_label2 }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.image2 != blank %}
+                    <div class="has-bg-image" style="background-image: url('{{ section.settings.image2 | image_url }}');"></div>
+                  {% else %}
+                    <div class="banner-placeholder">
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'banner-placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div>
+              </li>
+              <li>
+                <div class="banner-card banner-card-2 has-before hover:shine">
+                  {% if section.settings.subtitle1 != blank %}
+                    <p class="card-subtitle">{{ section.settings.subtitle1 }}</p>
+                  {% endif %}
+                  {% if section.settings.title1 != blank %}
+                    <h2 class="h2 card-title">{{ section.settings.title1 }}</h2>
+                  {% endif %}
+                  {% if section.settings.btn_label1 != blank %}
+                    <a {% if section.settings.button_url1 != blank %}
+                        href="{{ section.settings.button_url1 }}"
+                      {% else %}
+                        role="link" aria-disabled="true"
+                      {% endif %}
+                      class="btn btn-primary"
+                      style="cursor:pointer;"
+                    >
+                      {{ section.settings.btn_label1 }}
+                    </a>
+                  {% endif %}
+                  {% if section.settings.image1 != blank %}
+                    <div class="has-bg-image" style="background-image: url('{{ section.settings.image1 | image_url }}');"></div>
+                  {% else %}
+                    <div class="banner-placeholder">
+                      {{ 'lifestyle-2' | placeholder_svg_tag: 'banner-placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+        </ul>
+    </div>   
+</section>
+
+<style>
+  
+ img {height: auto;}
+
+  .banner-placeholder {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #d4d4d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .banner-placeholder .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .banner-placeholder svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+ 
+  
+  .has-bg-image{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+ 
+  .has-before,
+  .has-after{
+    position:relative;
+    z-index: 1;
+  }
+  
+  
+  .has-before::before,
+  .has-after::after{
+    content:"";
+    position:absolute;
+  }
+  
+  .hover\:shine {
+    overflow:hidden;
+  }
+  
+  .hover\:shine .has-bg-image{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom: 0;
+    left:0;
+    z-index:-1;
+    transition: var(--transition-2);
+  }
+  
+  .hover\:shine:is(:hover, :focus) .has-bg-image {transform: scale(1.15);}
+  
+  .hover\:shine::before {
+    top: 0;
+    left: -140%;
+    bottom:0;
+    width:100%;
+    background-image: var(--gradient);
+    transform: skewX(-25deg);
+    transition: var(--transition-2);
+    z-index: 1;
+  }
+  
+  .hover\:shine:is(:hover, :focus-visible)::before{animation: shine 1s ease forwards;}
+  
+  @keyframes shine{
+    0%{transform: skewX(-25deg) translateX(0%);}
+    100%{transform: skewX(-25deg) translateX(250%);}
+  }
+
+  
+ .img-holder{
+    aspect-ratio: var(--width) / var(--height);
+    background-color: var(--light-gray);
+  }
+  
+  .img-cover{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+  }
+  
+  
+  .flex-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  /*-----------------------------------*\
+    #BANNER
+  \*-----------------------------------*/
+  
+  .banner-list{
+   display: grid;
+   gap:30px;
+  }
+  
+  .banner-card{
+    min-height: 420px;
+    padding:30px;
+  }
+  
+  .banner-card .card-subtitle{
+    color: var(--black);
+    font-size: var(--fs-6);
+    font-weight: var(--fw-600);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family:var(--ff-roboto);
+  }
+  
+  .banner-card :is(.card-subtitle, .card-title) {text-shadow: 0 0 2px var(--cultured-2);}
+  
+  .banner-card-1  .card-title {margin-block:10px 30px;}
+  
+  .banner-card .card-text{
+    color:var(--black);
+    font-size: var(--fs-7);
+    margin-block: 10px 25px;
+  }
+  
+  
+  
+ 
+  
+  
+ 
+  /*-----------------------------------*\
+    #MEDIA QUERIES
+  \*-----------------------------------*/
+  
+  /*
+  responsive for larger than 575px screen
+  */
+@media screen and (min-width: 575px) {
+  /*
+  REUSED STYLE
+  */
+  
+
+  
+ 
+  
+  .has-scrollbar {gap: 30px;}
+  
+  .scrollbar-item{ min-width: calc(50% - 15px);}
+  
+  
+  /*
+  BANNER
+  */
+  .banner-card .card-text { max-width: 30ch;}
+  
+  
+  }
+  
+  
+  /*
+  responsive for larger than 768px screen
+  */
+  @media screen and (min-width: 768px) {
+    /*
+   CUSTOM PROPERTY
+    */
+  
+    
+    /*
+    REUSED STYLE
+    */
+    
+  
+  
+    .flex-item{max-width: calc(50% - 15px);}
+    
+    
+    /*
+   BANNER
+    */
+    
+    .banner-list{grid-template-columns:0.7fr 1fr ;}
+    
+   .banner-card {padding: 50px;}
+  
+ 
+    }
+  
+  
+  /*
+  responsive for larger than 992px screen
+  */
+  @media screen and (min-width: 992px) {
+  
+  
+      /*
+   REUSED STYLE
+    */
+  
+   
+  
+    .scrollbar-item {min-width: calc(33.33% - 20px);}
+  
+    .flex-item {max-width: calc(33.33% - 20px);}
+
+  
+   /*
+    BANNER
+    */
+  
+    .banner-list {grid-template-columns:0.5fr 1fr ;}
+  
+  
+  } 
+  
+  /*
+  responsive for larger than 1200px screen
+  */
+  @media screen and (min-width: 1200px) {
+  
+     /*
+ 
+   /*
+  BANNER
+   */
+  
+   .banner-card-1 .card-title{max-width: 15ch;}
+  
+
+
+
+
+  }
+
+
+
+
+  .has-bg-image{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .img-holder{
+    aspect-ratio: var(--width) / var(--height);
+    background-color: var(--light-gray);
+  }
+
+
+  .img-cover{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .banner-list{
+   display: grid;
+   gap:30px;
+  }
+  
+  .banner-card{
+    min-height: 420px;
+    padding:30px;
+  }
+  
+  .banner-card .card-subtitle{
+    color: var(--black);
+    font-size: var(--fs-6);
+    font-weight: var(--fw-600);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .banner-card :is(.card-subtitle, .card-title) {text-shadow: 0 0 2px var(--cultured-2);}
+  
+  .banner-card-1  .card-title {margin-block:10px 30px;}
+  
+  .banner-card .card-text{
+    color:var(--black);
+    font-size: var(--fs-7);
+    margin-block: 10px 25px;
+  }
+  
+  
+  
+ 
+  
+  
+   
+
+</style> 
+
+{% schema %}
+{
+  "name": "Image banner",
+  "settings": [
+    {
+      "type": "color_scheme","id": "color_scheme","label": "Color scheme","default": "scheme-1"
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "_banner-card"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image banner",
+      "category": "Banners",
+      "blocks": [
+        {
+          "type": "_banner-card",
+          "settings": {
+            "variant": "1"
+          },
+          "blocks": [
+            {
+              "type": "_banner-subheading",
+              "settings": {
+                "subheading": "Perfumes in distinctive notes to match every style"
+              }
+            },
+            {
+              "type": "_banner-heading",
+              "settings": {
+                "heading": "25% off Everything"
+              }
+            },
+            {
+              "type": "_banner-button",
+              "settings": {
+                "button_label": "Shop Now",
+                "button_url": "/collections/all"
+              }
+            }
+          ]
+        },
+        {
+          "type": "_banner-card",
+          "settings": {
+            "variant": "2"
+          },
+          "blocks": [
+            {
+              "type": "_banner-subheading",
+              "settings": {
+                "subheading": "NEW COLLECTION"
+              }
+            },
+            {
+              "type": "_banner-heading",
+              "settings": {
+                "heading": "Explore Our Latest Scentra Collection"
+              }
+            },
+            {
+              "type": "_banner-button",
+              "settings": {
+                "button_label": "Explore More",
+                "button_url": "/collections/all"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+

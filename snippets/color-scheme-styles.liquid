@@ -1,0 +1,33 @@
+{%- comment -%}
+  Color Scheme Inline Styles
+  Usage: {% render 'color-scheme-styles', scheme: section.settings.color_scheme %}
+  Outputs: inline style attribute content for background-color and color
+{%- endcomment -%}
+{%- comment -%}
+  If scheme is a ColorScheme object, use scheme.settings.
+  Otherwise, fallback if passed as a string (though color_scheme_group isn't accessible via global settings)
+{%- endcomment -%}
+{%- assign scheme_settings = scheme.settings -%}
+{%- if scheme_settings == blank -%}
+  {%- assign scheme_settings = settings.color_schemes[scheme].settings -%}
+{%- endif -%}
+{%- comment -%}
+  This theme uses both custom variables (e.g. --color-text) and Dawn-style
+  variables used by some components (e.g. --color-foreground-rgb).
+  Keep them in sync for the scoped section.
+{%- endcomment -%}
+
+background-color: {{ scheme_settings.background }};
+color: {{ scheme_settings.text }};
+--color-background: {{ scheme_settings.background }};
+--color-background-rgb: {{ scheme_settings.background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+--color-text: {{ scheme_settings.text }};
+--color-foreground: {{ scheme_settings.text }};
+--color-foreground-rgb: {{ scheme_settings.text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+--color-button: {{ scheme_settings.button }};
+--color-button-label: {{ scheme_settings.button_label }};
+--color-outline-button: {{ scheme_settings.secondary_button_label }};
+--color-link: {{ scheme_settings.secondary_button_label }};
+--color-shadow: {{ scheme_settings.shadow }};
+--color-button-primary: {{ scheme_settings.button }};
+--color-button-primary-text: {{ scheme_settings.button_label }};

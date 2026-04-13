@@ -1,0 +1,693 @@
+<section class="section gallery color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}" id="gallery">
+  <div class="container">
+    <p>Explore Our Scentra Collections</p>
+    {% comment %} <ul class="gallery-list">
+
+      <li class="gallery-item" data-reveal>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            {% if section.settings.image1 != blank %}
+               <img src="{{'gallery-1.jpg' | asset_url}}" width="450" height="625" loading="lazy" alt="Scentra Essence"
+                 class="img-cover">   
+            {% else %}
+                {{ 'product-3' | placeholder_svg_tag: 'img-cover' }}
+             {% endif %}
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">{{ block.settings.link }}</a>
+            </h3>
+            <span class="card-tag">{{ block.settings.title1 }}</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg'| asset_url}}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-2.jpg' | asset_url }}" width="450" height="625" loading="lazy"
+              alt="Blooming Petals" class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Blooming Petals</a>
+            </h3>
+            <span class="card-tag">Floral, Fresh</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url}}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+      </li>
+
+      <li class="gallery-item" data-reveal>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-3.jpg' | asset_url}}" width="450" height="625" loading="lazy" alt="Midnight Noir"
+              class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Midnight Noir</a>
+            </h3>
+            <span class="card-tag">Bold, Evening</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url }}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-4.jpg' | asset_url }}" width="450" height="625" loading="lazy" alt="Citrus Mist"
+              class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Citrus Mist</a>
+            </h3>
+            <span class="card-tag">Fresh, Daily Wear</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url}}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+      </li>
+
+      <li class="gallery-item" data-reveal>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-5.jpg' | asset_url}}" width="450" height="625" loading="lazy" alt="Golden Aura"
+              class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Golden Aura</a>
+            </h3>
+            <span class="card-tag">Warm, Oriental</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url }}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-6.jpg' | asset_url }}" width="450" height="625" loading="lazy" alt="Ocean Breeze"
+              class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Ocean Breeze</a>
+            </h3>
+            <span class="card-tag">Aqua, Refreshing</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url}}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+      </li>
+
+      <li class="gallery-item" data-reveal>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-7.jpg' | asset_url }}" width="450" height="625" loading="lazy"
+              alt="Rose Éclat" class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Rose Éclat</a>
+            </h3>
+            <span class="card-tag">Romantic, Floral</span>
+          </div>
+
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url}}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+
+        <div class="gallery-card">
+          <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+            <img src="{{'gallery-8.jpg' | asset_url}}" width="450" height="625" loading="lazy"
+              alt="Vanilla Secrets" class="img-cover">
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h6">
+              <a href="#" class="card-title">Vanilla Secrets</a>
+            </h3>
+            <span class="card-tag">Sweet, Cozy</span>
+          </div>
+          <a href="#" class="btn-icon">
+            <img src="{{'arrow-forward.svg' | asset_url}}" width="43" height="20" loading="lazy" alt="arrow-forward icon">
+          </a>
+        </div>
+      </li>
+
+    </ul> {% endcomment %}
+    
+      <ul class="gallery-list">
+        {% for block_idx in (1..4) %}
+          <li class="gallery-item" data-reveal>
+            {% assign idx1 = block_idx | times: 2 | minus: 1 %}
+            {% assign idx2 = block_idx | times: 2 %}
+            
+            {% for forloop_index in (idx1..idx2) %}
+              <div class="gallery-card">
+                <figure class="card-banner img-holder has-before" style="--width: 450; --height: 625;">
+                  {% assign image_key = 'image_' | append: forloop_index %}
+                  {% assign image = section.settings[image_key] %}
+                  
+                  {% if image != blank %}
+                    <img src="{{ image | image_url: width: 900 }}" 
+                        srcset="{{ image | image_url: width: 450 }} 450w,
+                                {{ image | image_url: width: 900 }} 900w"
+                        sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 25vw"
+                        width="450" 
+                        height="625" 
+                        loading="lazy" 
+                        alt="{{ image.alt | default: 'Gallery visual' }}"
+                        class="img-cover"
+                        style="{% render 'focal-point-style', image: image %}">
+                  {% else %}
+                    {{ 'product-5' | placeholder_svg_tag: 'img-cover' }}
+                  {% endif %}
+                </figure>
+
+                <div class="card-content">
+                  <h3 class="h6">
+                    {% assign title_key = 'title_' | append: forloop_index %}
+                    {% assign link_key = 'link_' | append: forloop_index %}
+                    <a href="{{ section.settings[link_key] }}" class="card-title">
+                      {{ section.settings[title_key] }}
+                    </a>
+                  </h3>
+                  {% assign tag_key = 'tag_' | append: forloop_index %}
+                  <span class="card-tag">{{ section.settings[tag_key] }}</span>
+                </div>
+
+                <a href="{{ section.settings[link_key] }}" class="btn-icon">
+                  <img src="{{ 'arrow-forward.svg' | asset_url }}" 
+                      width="43" 
+                      height="20" 
+                      loading="lazy" 
+                      alt="arrow-forward icon">
+                </a>
+              </div>
+            {% endfor %}
+          </li>
+        {% endfor %}
+      </ul>
+  </div>
+</section>
+
+<style>
+    /*-----------------------------------*\
+  #GALLERY
+\*-----------------------------------*/
+
+.gallery-list {
+    display: grid;
+    gap: 30px;
+    color:white;
+  }
+  
+  .gallery-item,
+  .gallery-card { position: relative; }
+  
+  .gallery-card :is(.card-content, .btn-icon) {
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .gallery-card .card-content {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 12px;
+  }
+  
+  .gallery-card .card-tag {
+    color: var(--white_a70);
+    font-size: var(--fs-9);
+    font-weight: var(--fw-300);
+  }
+  
+  .gallery-card .card-title {
+    font-weight: var(--fw-400);
+    max-width: max-content;
+    margin-block-end: 2px;
+  }
+  
+  .gallery-card .card-title:is(:hover, :focus-visible) { text-decoration: underline; }
+  
+  .gallery-card .btn-icon {
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    --border-radius: 0 0 0 var(--radius-25);
+  }
+  
+  .gallery-card .btn-icon img {
+    width: 25px;
+    transform: rotate(-45deg);
+  }
+  
+  .gallery-card .btn-icon:is(:hover, :focus-visible) {
+    border-bottom-left-radius: var(--radius-5);
+  }
+  
+  .gallery-card { animation: changeCard 10s linear infinite; }
+  
+  /* Performance: pause animation when section is off-screen */
+  .gallery-paused .gallery-card { animation-play-state: paused; }
+  
+  .gallery-item .gallery-card:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    animation-delay: 5s;
+  }
+  
+  @keyframes changeCard {
+    0%,
+    55%,
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  
+    5%,
+    50% {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  
+  .gallery-item:is(:hover, :focus-within) .gallery-card { animation-play-state: paused; }
+  
+  .gallery .scroll-down {
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-content: center;
+    margin-inline: auto;
+    margin-block-start: 55px;
+    border: 1px solid var(--white_a15);
+    border-radius: var(--radius-circle);
+    transition: var(--transition-2);
+    animation: scrollDown 2.5s linear infinite alternate;
+  }
+  
+  .gallery .scroll-down img { width: 22px; }
+  
+  .gallery .scroll-down:is(:hover, :focus-visible) {
+    background-color: var(--radical-red);
+    border-color: var(--radical-red);
+  }
+  
+  @keyframes scrollDown {
+    0% { transform: translateY(-12px); }
+    100% { transform: translateY(12px); }
+  }
+
+@media (min-width:575px){
+    :is(.gallery) { max-width: unset; }
+
+
+    /**
+   * GALLERY
+   */
+
+  .gallery-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 25px;
+  }
+
+  .gallery-card .btn-icon {
+    transform-origin: top right;
+    transform: scale(0);
+  }
+
+  .gallery-card:is(:hover, :focus-within) .btn-icon { transform: scale(1); }
+
+  .gallery-card :is(.card-title, .card-tag) {
+    transform: translateY(10px);
+    opacity: 0;
+    transition: var(--transition-2);
+  }
+
+  .gallery-card .card-tag { transition-delay: 0.1s; }
+
+  .gallery-card:is(:hover, :focus-within) :is(.card-title, .card-tag) {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .gallery [data-reveal] {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+
+
+
+
+
+}
+
+
+
+@media (min-width: 992px){
+  /**
+   * GALLERY
+   */
+
+   .gallery { padding-block-end: 140px; }
+
+   .gallery-list { grid-template-columns: repeat(4, 1fr); }
+ 
+   .gallery-item:nth-child(even) { margin-block-start: 100px; }
+ 
+   .gallery .scroll-down {
+     width: 85px;
+     height: 85px;
+     margin-block-start: 100px;
+   }
+ 
+   .gallery .scroll-down img { width: 26px; }
+ 
+   .gallery .shape {
+     left: 5%;
+     bottom: 15%;
+   }
+}
+
+
+@media (min-width: 1200px){
+  /**
+   * GALLERY
+   */
+
+   .gallery-list { gap: 50px; }
+
+   .gallery-card .card-title { font-weight: var(--fw-300); }
+}
+
+@media (min-width: 1400px){
+  :is(.gallery)  { max-width: 1580px; }
+}
+  </style>
+
+  <script>
+  /* Performance: pause gallery card animations when section is off-screen */
+  (function() {
+    var gallery = document.querySelector('#gallery');
+    if (!gallery) return;
+    gallery.classList.add('gallery-paused');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        entry.target.classList.toggle('gallery-paused', !entry.isIntersecting);
+      });
+    }, { threshold: 0 });
+    observer.observe(gallery);
+  })();
+  </script>
+
+  {% schema %}
+{
+  "name": "Gallery",
+  "tag": "section",
+  "class": "section gallery",
+  "settings": [
+    {
+      "type": "color_scheme","id": "color_scheme","label": "Color scheme","default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Title 1",
+      "default": "Scentra Essence"
+    },
+    {
+      "type": "text",
+      "id": "tag_1",
+      "label": "Tag 1",
+      "default": "Luxury, Signature"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Title 2",
+      "default": "Blooming Petals"
+    },
+    {
+      "type": "text",
+      "id": "tag_2",
+      "label": "Tag 2",
+      "default": "Floral, Fresh"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Title 3",
+      "default": "Midnight Noir"
+    },
+    {
+      "type": "text",
+      "id": "tag_3",
+      "label": "Tag 3",
+      "default": "Bold, Evening"
+    },
+    {
+      "type": "url",
+      "id": "link_3",
+      "label": "Link 3"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Title 4",
+      "default": "Citrus Mist"
+    },
+    {
+      "type": "text",
+      "id": "tag_4",
+      "label": "Tag 4",
+      "default": "Fresh, Daily Wear"
+    },
+    {
+      "type": "url",
+      "id": "link_4",
+      "label": "Link 4"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_5",
+      "label": "Title 5",
+      "default": "Golden Aura"
+    },
+    {
+      "type": "text",
+      "id": "tag_5",
+      "label": "Tag 5",
+      "default": "Warm, Oriental"
+    },
+    {
+      "type": "url",
+      "id": "link_5",
+      "label": "Link 5"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_6",
+      "label": "Title 6",
+      "default": "Ocean Breeze"
+    },
+    {
+      "type": "text",
+      "id": "tag_6",
+      "label": "Tag 6",
+      "default": "Aqua, Refreshing"
+    },
+    {
+      "type": "url",
+      "id": "link_6",
+      "label": "Link 6"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image 7",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_7",
+      "label": "Title 7",
+      "default": "Rose Éclat"
+    },
+    {
+      "type": "text",
+      "id": "tag_7",
+      "label": "Tag 7",
+      "default": "Romantic, Floral"
+    },
+    {
+      "type": "url",
+      "id": "link_7",
+      "label": "Link 7"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Item 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image 8",
+      "info": "450 x 625px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_8",
+      "label": "Title 8",
+      "default": "Vanilla Secrets"
+    },
+    {
+      "type": "text",
+      "id": "tag_8",
+      "label": "Tag 8",
+      "default": "Sweet, Cozy"
+    },
+    {
+      "type": "url",
+      "id": "link_8",
+      "label": "Link 8"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery",
+      "category": "Storytelling",
+      "settings": {
+        "title_1": "Signature Scent",
+        "tag_1": "Luxury",
+        "title_2": "Ocean Breeze",
+        "tag_2": "Fresh",
+        "title_3": "Evening Noir",
+        "tag_3": "Bold",
+        "title_4": "Golden Aura",
+        "tag_4": "Warm",
+        "title_5": "Scentra Essence",
+        "tag_5": "Signature",
+        "title_6": "Floral Bloom",
+        "tag_6": "Romantic",
+        "title_7": "Citrus Mist",
+        "tag_7": "Energizing",
+        "title_8": "Vanilla Secret",
+        "tag_8": "Sweet"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+
+

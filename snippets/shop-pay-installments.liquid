@@ -1,0 +1,36 @@
+{% comment %}
+  Shop Pay Installments Banner
+  Shows payment installment options on product pages
+  Required feature for Theme Store
+{% endcomment %}
+
+{% assign selected_variant = product.selected_or_first_available_variant %}
+{% assign shop_pay_installments_form_id = 'shop-pay-installments-' | append: product.id %}
+
+{% if product != blank and selected_variant != blank and selected_variant.price %}
+  <div class="shop-pay-installments">
+    {%- form 'product', product, id: shop_pay_installments_form_id, class: 'shop-pay-installments__form' -%}
+      <input type="hidden" name="id" value="{{ selected_variant.id }}">
+      {{ form | payment_terms }}
+    {%- endform -%}
+  </div>
+
+  <style>
+    .shop-pay-installments {
+      margin: 15px 0;
+    }
+
+    .shop-pay-installments__form {
+      margin: 0;
+    }
+
+    .shop-pay-installments .shopify-payment-terms {
+      font-size: 0.9em;
+      color: #333;
+    }
+
+    .shop-pay-installments svg {
+      vertical-align: middle;
+    }
+  </style>
+{% endif %}

@@ -1,0 +1,98 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text": "<h1>{{ closest.product.title }}</h1>",
+            "alignment": "left",
+            "type_preset": "h2"
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "alignment": "left"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "selling_plan": {
+          "type": "selling_plan",
+          "settings": {}
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "shop_pay_installments": {
+          "type": "shop_pay_installments",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "vendor",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "selling_plan",
+        "pickup_availability",
+        "shop_pay_installments",
+        "description",
+        "share"
+      ],
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": false,
+        "gap": 48,
+        "enable_sticky_add_to_cart": true,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 32
+      }
+    },
+    "related-products": {
+      "type": "related-products"
+    },
+    "complementary-products": {
+      "type": "complementary-products"
+    }
+  },
+  "order": [
+    "main-product",
+    "related-products",
+    "complementary-products"
+  ]
+}

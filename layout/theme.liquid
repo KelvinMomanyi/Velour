@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <title>
+    {{ page_title -}}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+  {%- comment -%}
+    Image preload handled inline with image_tag: preload: true
+  {%- endcomment -%}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}" />
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  {%- if request.page_type == 'index' -%}
+    <meta name="robots" content="index, follow">
+  {%- endif -%}
+
+  {% comment %} theme-check-disable RemoteAsset {% endcomment %}
+  {%- for locale in shop.published_locales -%}
+    <link rel="alternate" hreflang="{{ locale.iso_code }}" href="{{ locale.root_url | append: request.path }}">
+  {%- endfor -%}
+  <link rel="alternate" hreflang="x-default" href="{{ shop.url | append: request.path }}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.shopify.com">
+  <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+  {% comment %} theme-check-enable RemoteAsset {% endcomment %}
+
+  {%- comment -%}
+    Critical Request Chain Optimization: Preload core ES modules to flatten the dependency tree.
+  {%- endcomment -%}
+  <link rel="modulepreload" href="{{ 'utilities.js' | asset_url }}">
+  <link rel="modulepreload" href="{{ 'component.js' | asset_url }}">
+  <link rel="modulepreload" href="{{ 'events.js' | asset_url }}">
+  <link rel="modulepreload" href="{{ 'section-renderer.js' | asset_url }}">
+  <link rel="modulepreload" href="{{ 'morph.js' | asset_url }}">
+
+  {%- comment -%}
+    Largest Contentful Paint (LCP) Optimization: handled inline via Shopify image_tag preload on rendered media.
+  {%- endcomment -%}
+
+
+  <!-- Open Graph & Twitter Card Tags -->
+  {% render 'social-meta-tags' %}
+  {% render 'structured-data' %}
+  
+  <link rel="shortcut icon" href="{{ 'favicon.svg' | asset_url }}" type="image/svg+xml">
+  
+  <!-- Fonts are now loaded via application.css.liquid based on theme settings -->
+
+  <!-- Critical Images Preload -->
+  <!-- Images are loaded from hero section settings or placeholders -->
+
+  {% comment %} theme-check-disable ContentForHeaderModification {% endcomment %}
+  {%- capture content_for_header_captured -%}
+    {{ content_for_header }}
+  {%- endcapture -%}
+  {{- content_for_header_captured | replace: ' src=', ' defer="defer" src=' | replace: ' defer="defer" defer="defer" src=', ' defer="defer" src=' | replace: ' async="async" defer="defer" src=', ' defer="defer" src=' -}} <!-- Header hook for plugins (Deferred) -->
+  {% comment %} theme-check-enable ContentForHeaderModification {% endcomment %}
+  
+  <!-- Module import map - must come before any ES module scripts -->
+  <script type="importmap">
+  {
+    "imports": {
+      "@theme/utilities": "{{ 'utilities.js' | asset_url }}",
+      "@theme/component": "{{ 'component.js' | asset_url }}"
+    }
+  }
+  </script>
+  
+  <!-- Critical inline styles for above-the-fold content -->
+  <style>
+    /* Minimal critical CSS to prevent FOUC while full stylesheet loads async */
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    li{list-style:none}
+    a,img,span,input,button{display:block}
+    a{color:inherit;text-decoration:none}
+    img{height:auto}
+    html{font-family:var(--ff-roboto);font-size:10px;scroll-behavior:smooth}
+    body{background-color:var(--white,#fff);color:var(--black,#121212);font-size:1.6rem;line-height:1.7}
+    .container{padding-inline:15px}
+    .section{padding-block:var(--section-padding,50px)}
+    .img-holder{aspect-ratio:var(--width)/var(--height);background-color:var(--light-gray,hsl(0,0%,80%));overflow:hidden}
+    .img-cover{width:100%;height:100%;object-fit:cover;object-position:var(--focal-point,center center)}
+    .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    .header{position:absolute;top:2;left:0;width:100%;background-color:var(--white,#fff);padding-block:10px;z-index:4}
+    .header .container{display:flex;justify-content:space-between;align-items:center}
+    .header-start,.header-center,.header-action{display:flex;align-items:center}
+    .header-center{justify-content:center}
+    .header-action{gap:10px}
+    .hero-list{display:grid;gap:15px}
+    .hero-card{position:relative}
+    @media(min-width:768px){.container{max-width:768px}.hero-list{grid-template-columns:repeat(4,1fr);gap:10px}}
+    @media(min-width:992px){.container{max-width:992px}}
+    @media(min-width:1200px){.container{max-width:1200px}}
+  </style>
+
+  <!-- Full CSS loaded asynchronously (non-render-blocking) -->
+  {{ 'application.css' | asset_url | stylesheet_tag: preload: true }}
+  
+  <!-- Lightweight AOS replacement - CSS-only fade-up animations -->
+  <style>
+    [data-aos] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    [data-aos].aos-animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <script>
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      cart_url: '{{ routes.cart_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
+  </script>
+
+  <script>
+    window.ScentraUtils = {
+      debounce: function (func, delay) {
+        var timeout;
+        return function () {
+          var context = this;
+          var args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(function () { func.apply(context, args); }, delay);
+        };
+      },
+      throttle: function (func, limit) {
+        var inThrottle;
+        return function () {
+          var args = arguments;
+          var context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(function () { inThrottle = false; }, limit);
+          }
+        };
+      }
+    };
+  </script>
+
+</head>
+<body id="top">
+  <a class="skip-to-content-link visually-hidden" href="#MainContent">
+    {{ 'accessibility.skip_to_text' | t }}
+  </a>
+  {% sections 'header-group' %}
+  <main id="MainContent" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+  {% sections 'backToTop-group' %}
+  {% sections 'footer-group' %}
+
+  <!-- Load global component runtime only when matching components are present -->
+  <script>
+    (function () {
+      var globalScriptSrc = '{{ "global.js" | asset_url }}';
+      var globalScriptLoading = false;
+      var globalScriptLoaded = false;
+      var globalRuntimeSelector = [
+        'slideshow-component',
+        'slider-component',
+        'product-recommendations',
+        'deferred-media',
+        'quantity-input',
+        'bulk-modal',
+        'account-icon',
+        'bulk-add'
+      ].join(',');
+
+      function loadGlobalScript() {
+        if (globalScriptLoaded || globalScriptLoading) return;
+        if (document.querySelector('script[src="' + globalScriptSrc + '"]')) {
+          globalScriptLoaded = true;
+          return;
+        }
+
+        globalScriptLoading = true;
+        var script = document.createElement('script');
+        script.src = globalScriptSrc;
+        script.defer = true;
+        script.addEventListener('load', function () {
+          globalScriptLoaded = true;
+          globalScriptLoading = false;
+        }, { once: true });
+        script.addEventListener('error', function () {
+          globalScriptLoading = false;
+        }, { once: true });
+        document.head.appendChild(script);
+      }
+
+      function ensureGlobalRuntimeIfNeeded() {
+        requestAnimationFrame(() => {
+          if (document.querySelector(globalRuntimeSelector)) {
+            loadGlobalScript();
+          }
+        });
+      }
+
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(ensureGlobalRuntimeIfNeeded);
+      } else {
+        setTimeout(ensureGlobalRuntimeIfNeeded, 200);
+      }
+
+      document.addEventListener('shopify:section:load', () => {
+        requestAnimationFrame(ensureGlobalRuntimeIfNeeded);
+      });
+      document.addEventListener('click', ensureGlobalRuntimeIfNeeded, { passive: true });
+      document.addEventListener('focusin', ensureGlobalRuntimeIfNeeded, { passive: true });
+    })();
+  </script>
+  <script src="{{ 'application.js' | asset_url }}" defer></script>
+
+</body>
+</html>

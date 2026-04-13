@@ -1,0 +1,413 @@
+{%- liquid
+  assign overlay_opacity = section.settings.overlay_opacity | times: 0.01
+  assign has_buttons = false
+  assign has_socials = false
+  for block in section.blocks
+    if block.type == 'button'
+      assign has_buttons = true
+    endif
+    if block.type == 'social'
+      assign has_socials = true
+    endif
+  endfor
+-%}
+
+<section class="section hero-wide color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}">
+  <div class="hero-wide__media" style="--hero-wide-overlay: {{ overlay_opacity }};">
+    {%- if section.settings.background_image != blank -%}
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1400 }}"
+        srcset="{{ section.settings.background_image | image_url: width: 750 }} 750w,
+                {{ section.settings.background_image | image_url: width: 1100 }} 1100w,
+                {{ section.settings.background_image | image_url: width: 1500 }} 1500w,
+                {{ section.settings.background_image | image_url: width: 1780 }} 1780w,
+                {{ section.settings.background_image | image_url: width: 2000 }} 2000w,
+                {{ section.settings.background_image | image_url: width: 3000 }} 3000w"
+        sizes="100vw"
+        alt="{{ section.settings.background_image.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.background_image.width }}"
+        height="{{ section.settings.background_image.height }}"
+      >
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  <div class="container hero-wide__container hero-wide__container--{{ section.settings.content_alignment }}">
+    <div class="hero-wide__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hero-wide__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h1 class="hero-wide__title">
+        <span>{{ section.settings.title }}</span>
+        {%- if section.settings.highlight != blank -%}
+          <span class="hero-wide__title-highlight">{{ section.settings.highlight }}</span>
+        {%- endif -%}
+      </h1>
+
+      {%- if section.settings.subtitle != blank -%}
+        <div class="hero-wide__subtitle rte">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+
+      {%- if has_buttons -%}
+        <div class="hero-wide__actions">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'button' -%}
+                {%- assign button_class = 'btn btn-primary' -%}
+                {%- if block.settings.style == 'secondary' -%}
+                  {%- assign button_class = 'btn btn-secondary' -%}
+                {%- endif -%}
+                <a class="{{ button_class }}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+                  {{ block.settings.label }}
+                </a>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if has_socials -%}
+        <div class="hero-wide__socials">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'social' -%}
+                <a class="hero-wide__social" href="{{ block.settings.link }}" aria-label="{{ block.settings.label }}" {{ block.shopify_attributes }}>
+                  {%- assign icon_name = block.settings.icon | downcase | strip -%}
+                  {%- case icon_name -%}
+                    {%- when 'logo-instagram' -%}
+                      {%- assign icon_name = 'instagram' -%}
+                    {%- when 'logo-facebook' -%}
+                      {%- assign icon_name = 'facebook' -%}
+                    {%- when 'logo-twitter' -%}
+                      {%- assign icon_name = 'twitter' -%}
+                    {%- when 'logo-x' -%}
+                      {%- assign icon_name = 'twitter' -%}
+                    {%- when 'logo-tiktok' -%}
+                      {%- assign icon_name = 'tiktok' -%}
+                    {%- when 'logo-tumblr' -%}
+                      {%- assign icon_name = 'tumblr' -%}
+                    {%- when 'logo-pinterest' -%}
+                      {%- assign icon_name = 'pinterest' -%}
+                    {%- when 'logo-youtube' -%}
+                      {%- assign icon_name = 'youtube' -%}
+                    {%- when 'logo-snapchat' -%}
+                      {%- assign icon_name = 'snapchat' -%}
+                    {%- when 'logo-vimeo' -%}
+                      {%- assign icon_name = 'vimeo' -%}
+                  {%- endcase -%}
+                  {%- if icon_name != blank -%}
+                    {% render 'icon-scentra', icon: icon_name %}
+                  {%- endif -%}
+                  <span class="visually-hidden">{{ block.settings.label }}</span>
+                </a>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-wide {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(70px, 12vw, 150px) 0;
+    color: var(--color-text);
+  }
+
+  .hero-wide__media {
+    position: absolute;
+    inset: 0;
+    background: var(--color-background);
+  }
+
+  .hero-wide__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--hero-wide-overlay, 0.35));
+  }
+
+  .hero-wide__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-wide__media svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-wide__container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-wide__content {
+    max-width: 640px;
+    display: grid;
+    gap: 20px;
+  }
+
+  .hero-wide__container--center .hero-wide__content {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-wide__container--right .hero-wide__content {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .hero-wide__eyebrow {
+    font-size: var(--fs-6);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .hero-wide__title {
+    font-size: clamp(3.2rem, 6vw, 6.8rem);
+    line-height: 1.05;
+    font-weight: var(--fw-500);
+    margin: 0;
+  }
+
+  .hero-wide__title-highlight {
+    display: block;
+    color: var(--color-button) !important;
+  }
+
+  .hero-wide__subtitle {
+    font-size: var(--fs-4);
+    max-width: 44ch;
+    opacity: 0.85;
+  }
+
+  .hero-wide__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-wide__container--center .hero-wide__actions {
+    justify-content: center;
+  }
+
+  .hero-wide__container--right .hero-wide__actions {
+    justify-content: flex-end;
+  }
+
+  .hero-wide__socials {
+    display: flex;
+    gap: 12px;
+  }
+
+  .hero-wide__container--center .hero-wide__socials {
+    justify-content: center;
+  }
+
+  .hero-wide__container--right .hero-wide__socials {
+    justify-content: flex-end;
+  }
+
+  .hero-wide__social {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: none;
+    color: inherit;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .hero-wide__social:hover {
+    transform: translateY(-2px);
+    background: currentColor;
+    color: var(--color-background);
+  }
+
+  .hero-wide__container--center .hero-wide__subtitle {
+    margin: 0 auto;
+  }
+
+  .hero-wide__container--right .hero-wide__subtitle {
+    margin-left: auto;
+  }
+
+  @media (max-width: 749px) {
+    .hero-wide {
+      padding: calc(var(--section-padding) * 2) 0;
+    }
+
+    .hero-wide__subtitle {
+      font-size: 1.5rem;
+    }
+
+    .hero-wide__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Wide",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Crafted for modern fragrance lovers"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Highlight",
+      "default": "Since 2019"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>We curate bold, timeless scents that turn everyday moments into signatures.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 35
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Shop collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "secondary", "label": "Secondary" }
+          ],
+          "default": "primary"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Instagram"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "facebook", "label": "Facebook" },
+            { "value": "twitter", "label": "Twitter" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "tumblr", "label": "Tumblr" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "snapchat", "label": "Snapchat" },
+            { "value": "vimeo", "label": "Vimeo" }
+          ],
+          "default": "instagram"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Wide",
+      "category": "Banners",
+      "blocks": [
+        { "type": "button" },
+        { "type": "button" },
+        {
+          "type": "social",
+          "settings": {
+            "label": "Instagram",
+            "icon": "instagram"
+          }
+        },
+        {
+          "type": "social",
+          "settings": {
+            "label": "TikTok",
+            "icon": "tiktok"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+
+
+

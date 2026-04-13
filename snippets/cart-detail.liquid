@@ -1,0 +1,712 @@
+<div id="myModal2" class="cartBar" >
+    <div class="cartBar-content" style="overflow-y:auto;" >
+      <button class="nav-close-btn cartBar-close-btn" onclick="closeCartbar()" aria-label="Close cart">
+        {% render 'icon-scentra', icon: 'close' %}
+      </button>
+  
+      <div id="loader" style="display: none;">Loading...</div>
+  
+      <div id="cart-content">
+         {% comment %} {% if cart.item_count > 0 %}
+          <h1>Cart</h1>
+          <form action="/cart" method="post" novalidate>
+            <div class="shop-card">
+              <tbody>
+                {% for item in cart.items %}
+                 <div style="display:flex;" >
+                    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+                      <a href="{{ item.url | within: collections.all }}">
+                        <img src="{{ item | image_url: width: 480 }}" alt="{{ item.title | escape }}" class="img-cover" width="540" height="720" loading="lazy">
+                      </a>
+                    </div>
+                    <div style="flex:1; display:flex; align-items:center; justify-content:center; flex-direction:column;" >
+                       <td>
+                         <a href="{{ item.url }}">{{ item.product.title }}</a>
+                          {{item.price}}
+                          <a href="#" class="remove-item" data-line="${index + 1}">Remove</a> 
+                         {% comment %} <form action="change" method="post">
+                          <input type="hidden" name="line" value="${index + 1}">
+                          <input type="hidden" name="quantity" value="0">
+                          <button type="submit" class="remove-item-button">Remove</button>
+                        </form> {% endcomment %}
+                      </td>
+                      <td>{{ item.price | money }}</td>
+                      <td>
+                        <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+                      </td>
+                      <td>
+                        {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+                        {{ item.line_price | money }}
+                        {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+                     </td>
+                       <div class="quantity-selector">
+                         <button type="button" class="decrement" id="decrement_{{ item.key }}">-</button>
+                         <span id="quantity_{{ item.key }}">{{ item.quantity }}</span>
+                         <button type="button" class="increment" id="increment_{{ item.key }}">+</button>
+                       </div> 
+                    </div>
+                  </div>
+
+
+              
+
+                  
+                  
+                <span id="price_{{ item.key }}">{{ item.final_price | money }}</span> 
+                {% endfor %}
+              </tbody>
+            </div>
+  
+            <div>
+              <p>Sub total: {{ cart.total_price | money }}</p>
+              <button type="submit" name="update">Update</button>
+              <button type="submit" name="checkout" class="btn btn-primary">Checkout</button>
+            </div>
+          </form>
+        {% else %}
+          <h2>Cart</h2>
+          <p>Cart is empty</p>
+        {% endif %}  {% endcomment %}
+      </div>
+    </div>
+  </div>
+ <style>
+ .cartBar {
+   display: none;
+   position: fixed;
+   inset: 0;
+   background-color: rgba(0, 0, 0, 0.45);
+   backdrop-filter: blur(3px);
+   z-index: 9100;
+ }
+
+ .cartBar-content {
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   width: min(94vw, 430px);
+   background: linear-gradient(to bottom, var(--white), var(--cultured));
+   border-left: 1px solid var(--light-gray);
+   box-shadow: -16px 0 34px rgba(0, 0, 0, 0.16);
+   padding: 12px 14px 18px;
+   overflow-y: auto;
+ }
+
+ .cartBar-close-btn {
+   width: 38px;
+   height: 38px;
+   margin-left: auto;
+   border: 1px solid var(--light-gray);
+   background: var(--white);
+   color: var(--dark-gray);
+   display: grid;
+   place-items: center;
+   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+ }
+
+ .cartBar-close-btn:hover {
+   color: var(--tan-crayola);
+   border-color: var(--tan-crayola);
+   background: var(--cultured);
+ }
+
+ #cart-content h1,
+ #cart-content h2 {
+   font-family: var(--ff-mr_de_haviland);
+   font-size: clamp(3rem, 6vw, 4.2rem);
+   font-weight: var(--fw-500);
+   line-height: 1;
+   text-align: left;
+   margin: 12px 2px 16px;
+ }
+
+ #cart-content .cart-items-wrap form {
+   display: flex;
+   flex-direction: column;
+ }
+
+ #cart-content .cart-item-row {
+   display: grid !important;
+   grid-template-columns: 96px 1fr;
+   gap: 14px;
+   padding: 14px 8px !important;
+   border-top: 1px solid var(--light-gray);
+ }
+
+ #cart-content .cart-item-row:last-of-type {
+   border-bottom: 1px solid var(--light-gray);
+ }
+
+ #cart-content .cart-item-image {
+   width: 96px;
+   height: 120px;
+   object-fit: cover;
+   border: 1px solid var(--light-gray);
+   background: var(--white);
+ }
+
+ #cart-content .cart-item-top {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   gap: 10px;
+   margin-bottom: 6px;
+ }
+
+ #cart-content .cart-item-title {
+   font-size: 1.4rem !important;
+   line-height: 1.35;
+   color: var(--black);
+   text-decoration: none;
+ }
+
+ #cart-content .cart-item-title:hover {
+   color: var(--tan-crayola);
+ }
+
+ #cart-content .remove-item {
+   color: var(--dark-gray) !important;
+ }
+
+ #cart-content .remove-item:hover {
+   color: #b72c2c !important;
+ }
+
+ #cart-content .cart-item-price,
+ #cart-content .cart-item-line-price {
+   margin: 0;
+   font-size: 1.35rem !important;
+   line-height: 1.45;
+ }
+
+ #cart-content .cart-item-line-price {
+   color: var(--spanish-gray);
+   margin-bottom: 10px;
+ }
+
+ #cart-content .quantity-selector {
+   display: inline-grid;
+   grid-template-columns: 32px 1fr 32px;
+   align-items: center;
+   border: 1px solid var(--light-gray);
+   width: 108px;
+   height: 34px;
+   margin-top: 4px;
+ }
+
+ #cart-content .quantity-selector button {
+   border: 0;
+   background: var(--white);
+   font-size: 1.8rem;
+   color: var(--dark-gray);
+   cursor: pointer;
+   height: 100%;
+ }
+
+ #cart-content .quantity-selector button:hover {
+   color: var(--tan-crayola);
+   background: var(--cultured);
+ }
+
+ #cart-content .quantity-selector span {
+   text-align: center;
+   font-size: 1.3rem;
+ }
+
+ #cart-content .cart-summary {
+   padding: 14px 8px 4px;
+   display: grid;
+   gap: 10px;
+ }
+
+ #cart-content #subtotal {
+   margin: 0 0 4px;
+   font-size: 1.5rem;
+   font-weight: var(--fw-500);
+ }
+
+ #cart-content .cart-summary button[name="update"] {
+   width: 100%;
+   min-height: 42px;
+   border: 1px solid var(--light-gray);
+   background: var(--white);
+   color: var(--black);
+   cursor: pointer;
+ }
+
+ #cart-content .cart-summary button[name="checkout"] {
+   width: 100%;
+   min-height: 44px;
+ }
+
+ #cart-content .cart-empty {
+   margin: 18px 4px;
+   color: var(--spanish-gray);
+   font-size: 1.35rem;
+   text-align: left;
+ }
+
+ .hidden {
+   display: none;
+ }
+ </style>
+  <script>
+      function fetchCart() {
+        fetch('/cart.js')
+          .then(response => response.json())
+          .then(cart => {
+            updateCartUI(cart);
+          })
+          .catch(error => console.error('Error-fetching cart:', error));
+      }
+
+        const currencySymbol = "{{ shop.currency | escape }}"; 
+        
+        // Safe money formatter fallback in case Shopify.formatMoney is undefined (prevents blank cart)
+        function formatMoneySafe(cents, format) {
+          if (typeof cents === 'string') { cents = cents.replace('.', ''); }
+          let value = '';
+          const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+          const formatString = (format || '${{amount}}');
+
+          function defaultOption(opt, def) {
+            return (typeof opt == 'undefined' ? def : opt);
+          }
+
+          function formatWithDelimiters(number, precision, thousands, decimal) {
+            precision = defaultOption(precision, 2);
+            thousands = defaultOption(thousands, ',');
+            decimal = defaultOption(decimal, '.');
+
+            if (isNaN(number) || number == null) { return 0; }
+
+            number = (number / 100).toFixed(precision);
+
+            let parts = number.split('.'),
+                dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+                cents = parts[1] ? (decimal + parts[1]) : '';
+
+            return dollars + cents;
+          }
+
+          switch(formatString.match(placeholderRegex)[1]) {
+            case 'amount':
+              value = formatWithDelimiters(cents, 2);
+              break;
+            case 'amount_no_decimals':
+              value = formatWithDelimiters(cents, 0);
+              break;
+            case 'amount_with_comma_separator':
+              value = formatWithDelimiters(cents, 2, '.', ',');
+              break;
+            case 'amount_no_decimals_with_comma_separator':
+              value = formatWithDelimiters(cents, 0, '.', ',');
+              break;
+          }
+
+          return formatString.replace(placeholderRegex, value);
+        }
+
+        function formatMoney(cents) {
+          if (window.Shopify && window.Shopify.formatMoney) {
+            return window.Shopify.formatMoney(cents, "{{ shop.money_format }}");
+          }
+          return formatMoneySafe(cents, "{{ shop.money_format }}");
+        }
+        {% comment %} function getCurrencySymbol(currencyCode) {
+          return (0).toLocaleString(undefined, {
+            style: "currency",
+            currency: currencyCode,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          }).replace(/\d/g, '').trim();
+        }
+      
+        // Function to update currency symbol when the currency changes
+        function updateCurrencySymbol() {
+          // Get the current currency from Shopify
+          const currencyCode = window.Shopify.currency.active || "{{ shop.currency.iso_code }}";
+          
+          // Update the symbol
+          const currencySymbol = getCurrencySymbol(currencyCode);
+      
+          // Now, do something with the updated symbol, like updating the UI
+          document.querySelector('#currency-symbol').innerText = currencySymbol;
+        }
+      
+        // Run on page load
+        document.addEventListener("DOMContentLoaded", function() {
+          updateCurrencySymbol();
+        });
+      
+        // Shopify typically triggers a 'currency:changed' event when the currency changes
+        document.addEventListener("currency:changed", function(event) {
+          updateCurrencySymbol();
+        }); {% endcomment %}
+        function updateCartUI(cart) {
+          var cartContent = document.getElementById('cart-content');
+          cartContent.innerHTML = ''; // Clear existing content
+          
+          if (cart.item_count > 0) {
+            var cartHTML = `
+            <div class="cart-items-wrap" style="display: flex; flex-direction: column;">
+              <h1>Cart</h1>
+              <form action="/cart" method="post" novalidate>`;
+            let subtotal = 0;
+            cart.items.forEach(function(item, index) {
+              const itemPrice = item.price; // Keep in cents for Shopify.formatMoney
+              const initialTotalPrice = itemPrice * item.quantity;
+              subtotal += initialTotalPrice;
+              const safeItemId = `item_${item.key.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+              cartHTML += `
+                          <div class="cart-item-row" style="display:flex; padding:20px; margin-bottom:1rem;" id="${safeItemId}">
+                              <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+                                <a href="${item.url}">
+                                  <img src="${item.image}" alt="${item.title}" class="img-cover cart-item-image" width="480" height="640" loading="lazy">
+                                </a>
+                              </div>
+                              <div class="cart-item-details" style="flex:1; display:flex;  flex-direction:column;" >
+                                  <div class="cart-item-top" style="flex:1; display:flex; justify-content:space-between">
+                                    <a href="${item.url}" class="cart-item-title" style="font-size:1.5rem;">${item.product_title}</a>
+                                    <a href="#" class="remove-item" data-line="${index + 1}" data-key="${item.key}" style="color: black;"><span class="icon icon--close-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M320 320L192 192M320 192L192 320"/></svg></span></a>
+                                  </div>
+                                  <div>
+                                      <p class="cart-item-price" style="font-size:1.5rem;">${formatMoney(itemPrice)}</p>
+                                      <p id="line_price_${item.key}" class="cart-item-line-price" style="font-size:1.5rem;">Total:  ${formatMoney(initialTotalPrice)}</p>
+                                  </div> 
+                                  <td style="display:flex; align-items:center; justify-content:center">
+                                    <input style="display:none;" type="number" name="updates[]" id="updates_${item.key}" value="${item.quantity}" min="0">
+                                  </td>
+                                <td>
+                                  {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+                                  {{ item.line_price | money }}
+                                  {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+                              </td>
+                              <div class="quantity-selector">
+                                <button type="button" class="decrement" id="decrement_${item.key}" aria-label="Decrease quantity">-</button>
+                                <span id="quantity_${item.key}">${item.quantity}</span>
+                                <button type="button" class="increment" id="increment_${item.key}" aria-label="Increase quantity">+</button>
+                              </div> 
+                              </div>
+                        </div>
+              `;
+            });
+        
+            cartHTML += `
+              <div class="cart-summary">
+                <p id="subtotal">Subtotal: ${formatMoney(subtotal)}</p>
+                <button type="submit" name="update">Update</button>
+                <button type="submit" name="checkout" class="btn btn-primary">Checkout</button>
+                {% comment %} <p>Sub total: ${formatMoney(cart.total_price)}</p> {% endcomment %}
+              </div>
+            </form>
+          </div>`; 
+
+          cartContent.innerHTML = cartHTML;
+
+        // Add event listeners for increment and decrement buttons
+        cart.items.forEach(function(item, index) {
+          const decrementButton = document.getElementById(`decrement_${item.key}`);
+          const incrementButton = document.getElementById(`increment_${item.key}`);
+          const quantityDisplay = document.getElementById(`quantity_${item.key}`);
+          const quantityInput = document.getElementById(`updates_${item.key}`);
+          const linePriceDisplay = document.getElementById(`line_price_${item.key}`);
+          const subtotalDisplay = document.getElementById('subtotal');
+          const safeItemId = `item_${item.key.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+
+
+          function updatePriceAndQuantity(newQuantity) {
+            const newLinePrice = item.price * newQuantity; // Keep in cents
+            quantityDisplay.textContent = newQuantity;
+            quantityInput.value = newQuantity;
+            linePriceDisplay.innerHTML = `Total: ${formatMoney(newLinePrice)}`;
+
+            // Update the subtotal
+            subtotal = subtotal - (item.price * item.quantity) + newLinePrice;
+            subtotalDisplay.innerHTML = `Subtotal: ${formatMoney(subtotal)}`;
+
+            // Update item quantity to the new quantity
+            item.quantity = newQuantity;
+          }
+
+          decrementButton.addEventListener('click', function() {
+            let currentQuantity = parseInt(quantityInput.value, 10);
+            if (currentQuantity > 1) {
+              currentQuantity--;
+              updatePriceAndQuantity(currentQuantity);
+            }
+          });
+
+          incrementButton.addEventListener('click', function() {
+            let currentQuantity = parseInt(quantityInput.value, 10);
+            currentQuantity++;
+            updatePriceAndQuantity(currentQuantity);
+          });
+
+        // Define the removeCartItem function at the top, outside of loops or functions
+        {% comment %} function removeCartItem(safeItemId, line) {
+          console.log(`Attempting to remove item with ID: ${safeItemId}`);
+          const itemElement = document.getElementById(safeItemId);
+          if (itemElement) {
+            fetch(`/cart/change.js`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              body: JSON.stringify({
+                line: line,
+                quantity: 0
+              })
+            })
+            .then(response => response.json())
+            .then(updatedCart => {
+              itemElement.remove();
+              updateSubtotal(updatedCart);
+            })
+            .catch(error => {
+              console.error('Error removing item from cart:', error);
+            });
+          } else {
+            console.error(`Element with ID ${safeItemId} not found.`);
+          }
+        } {% endcomment %}
+
+    // Ensure that this code is run within a block where `removeButton`, `safeItemId`, and `index` are properly defined
+    // Define the removeCartItem function at the top level
+    {% comment %} function removeCartItem(safeItemId, line) {
+      console.log(`Attempting to remove item with ID: ${safeItemId}`);
+      const itemElement = document.getElementById(safeItemId);
+      if (itemElement) {
+        fetch(`/cart/change.js`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: JSON.stringify({
+            line: line,
+            quantity: 0
+          })
+        })
+        .then(response => response.json())
+        .then(updatedCart => {
+          itemElement.remove();
+          updateSubtotal(updatedCart);
+        })
+        .catch(error => {
+          console.error('Error removing item from cart:', error);
+        });
+      } else {
+        console.error(`Element with ID ${safeItemId} not found.`);
+      }
+    }
+
+    // Loop through the cart items and add event listeners
+    cart.items.forEach(function(item, index) {
+      const removeButton = document.querySelector(`.remove-item[data-key="${item.key}"]`);
+      const safeItemId = `item_${item.key.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+      // Check if removeButton is found before adding an event listener
+      if (removeButton) {
+        removeButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('removing....')
+          // Call the removeCartItem function with proper arguments
+          {% comment %} removeCartItem(safeItemId, index + 1); {% endcomment %}
+        });
+      } else {
+        console.warn(`Remove button not found for item with key: ${item.key}`);
+      }
+    }); {% endcomment %}
+
+
+          {% comment %} function removeCartItem(safeItemId, line) {
+            console.log(`Attempting to remove item with ID: ${safeItemId}`);
+            const itemElement = document.getElementById(safeItemId);
+            if (itemElement) {
+              fetch(`/cart/change.js`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                  line: line,
+                  quantity: 0
+                })
+              })
+              .then(response => response.json())
+              .then(updatedCart => {
+                itemElement.remove();
+                updateSubtotal(updatedCart);
+              })
+              .catch(error => {
+                console.error('Error removing item from cart:', error);
+              });
+            } else {
+              console.error(`Element with ID ${safeItemId} not found.`);
+            }
+        
+        }  {% endcomment %}
+
+      //REMOVING
+        const removeButton = document.querySelector(`.remove-item[data-key="${item.key}"]`);
+            
+        removeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            removeCartItem(safeItemId, index +1);
+          });
+        });
+            {% comment %} cartContent.innerHTML = cartHTML; {% endcomment %}
+          } else {
+            cartContent.innerHTML = '<h2>Cart</h2><p class="cart-empty">Your cart is currently empty.</p>';
+          }
+
+
+          function removeCartItem(safeItemId, line) {
+              
+            console.log(`Attempting to remove item with ID: ${safeItemId}`);
+            const itemElement = document.getElementById(safeItemId);
+            if (itemElement) {
+              fetch(`/cart/change.js`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                  line: line,
+                  quantity: 0
+                })
+              })
+              .then(response => response.json())
+              .then(updatedCart => {
+                itemElement.remove();
+                updateSubtotal(updatedCart);
+              })
+              .catch(error => {
+                console.error('Error removing item from cart:', error);
+              });
+            } else {
+              console.error(`Element with ID ${safeItemId} not found.`);
+            }
+        
+        }   
+        
+        
+          // Define the removeCartItem function at the top level
+    {% comment %} function removeCartItem(safeItemId, line) {
+      console.log(`Attempting to remove item with ID: ${safeItemId}`);
+      const itemElement = document.getElementById(safeItemId);
+      if (itemElement) {
+        fetch(`/cart/change.js`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: JSON.stringify({
+            line: line,
+            quantity: 0
+          })
+        })
+        .then(response => response.json())
+        .then(updatedCart => {
+          itemElement.remove();
+          updateSubtotal(updatedCart);
+        })
+        .catch(error => {
+          console.error('Error removing item from cart:', error);
+        });
+      } else {
+        console.error(`Element with ID ${safeItemId} not found.`);
+      }
+    }
+
+    // Loop through the cart items and add event listeners
+    cart.items.forEach(function(item, index) {
+      const removeButton = document.querySelector(`.remove-item[data-key="${item.key}"]`);
+      const safeItemId = `item_${item.key.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+      // Check if removeButton is found before adding an event listener
+      if (removeButton) {
+        removeButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Call the removeCartItem function with proper arguments
+          removeCartItem(safeItemId, index + 1);
+        });
+      } else {
+        console.warn(`Remove button not found for item with key: ${item.key}`);
+      }
+    }); {% endcomment %}
+
+          
+
+          
+          // Function to update the subtotalff
+          function updateSubtotal(updatedCart) {
+            let subtotal = 0;
+            updatedCart.items.forEach(item => {
+              subtotal += item.price * item.quantity;
+            });
+            document.getElementById('subtotal').innerHTML = `Subtotal: ${formatMoney(subtotal)}`;
+          }
+        }
+        
+
+        
+
+
+
+
+
+
+        function submitAddToCartForm(formElement) {
+          let formData = new FormData(formElement);
+          var myModal2 = document.getElementById('myModal2');
+          var loader = myModal2.querySelector('#loader');
+          var cartContent = myModal2.querySelector('#cart-content');
+        
+          // myModal2.style.display = 'block'; // Disabled auto-open
+        
+          // Show the loader and hide the cart content initially
+          // loader.style.display = 'block'; // Disabled auto-open
+          // cartContent.style.display = 'none'; // Disabled auto-open
+        
+          // Simulate data fetching (or actual AJAX request)
+        // Adjust this timeout based on actual data fetching time
+        
+          fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {     
+            // openCart(); // Disabled auto-open
+            fetchCart();
+            if (window.updateCartCount) window.updateCartCount();
+            setTimeout(function() {
+              // Hide the loader and show the cart content
+              loader.style.display = 'none';
+              cartContent.style.display = 'block';
+            }, 100); 
+      
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        
+          return false; // Prevent the default form submission
+        }
+
+
+
+
+
+        
+
+</script>  

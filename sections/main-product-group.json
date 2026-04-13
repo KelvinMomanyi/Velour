@@ -1,0 +1,23 @@
+{
+    "name": "Product Section Group",
+    "type": "custom.product",
+    "sections": {
+        "main-product": {
+            "type": "main-product",
+            "settings": {}
+        },
+        "related-products": {
+            "type": "related-products",
+            "settings": {}
+        },
+        "complementary-products": {
+            "type": "complementary-products",
+            "settings": {}
+        }
+    },
+    "order": [
+        "main-product",
+        "related-products",
+        "complementary-products"
+    ]
+}

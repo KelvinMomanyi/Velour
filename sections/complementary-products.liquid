@@ -1,0 +1,238 @@
+<div class="complementary-products section-{{ section.id }} color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}">
+  {% if product.id %}
+    <product-recommendations
+      class="complementary-products__recommendations"
+      data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.product_limit }}&intent=complementary"
+      data-product-id="{{ product.id }}"
+      data-section-id="{{ section.id }}"
+    >
+      {% if recommendations.performed and recommendations.products_count > 0 %}
+        <div class="container">
+          {%- if section.settings.heading != blank -%}
+            <div class="title-wrapper">
+              <h2 class="h2 section-title complementary-products__heading">{{ section.settings.heading }}</h2>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <p class="complementary-products__description">{{ section.settings.description }}</p>
+          {%- endif -%}
+
+          <ul class="complementary-products__grid">
+            {% for complementary_product in recommendations.products %}
+              <li class="grid__item decoration">
+                <div class="product-card">
+                  <a href="{{ complementary_product.url }}" class="card-banner img-holder has-before" style="--width: 300; --height: 300;">
+                    {% if complementary_product.featured_image %}
+                      <img
+                        src="{{ complementary_product.featured_image | image_url: width: 600 }}"
+                        srcset="{{ complementary_product.featured_image | image_url: width: 300 }} 300w,
+                                {{ complementary_product.featured_image | image_url: width: 450 }} 450w,
+                                {{ complementary_product.featured_image | image_url: width: 600 }} 600w,
+                                {{ complementary_product.featured_image | image_url: width: 900 }} 900w"
+                        sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 300px"
+                        alt="{{ complementary_product.featured_image.alt | escape }}"
+                        class="img-cover"
+                        style="{% render 'focal-point-style', image: complementary_product.featured_image %}"
+                        width="300"
+                        height="300"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'img-cover' }}
+                    {% endif %}
+
+                    <ul class="card-action-list">
+                      <li>
+                        <button class="card-action-btn" aria-label="add to cart" title="add to cart">
+                          {% render 'icon-scentra', icon: 'add' %}
+                        </button>
+                      </li>
+                      <li>
+                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="add-to-cart-form">
+                          <input type="hidden" name="id" value="{{ complementary_product.selected_or_first_available_variant.id }}">
+                          <button type="submit" class="card-action-btn" aria-label="add to cart">
+                            {% render 'icon-scentra', icon: 'bag-handle' %}
+                          </button>
+                        </form>
+                      </li>
+                    </ul>
+
+                    {% if complementary_product.compare_at_price > complementary_product.price %}
+                      <ul class="badge-list">
+                        <li>
+                          <div class="badge orange">Sale</div>
+                        </li>
+                        <li>
+                          <div class="badge cyan">
+                            {%- assign savings = complementary_product.compare_at_price | minus: complementary_product.price -%}
+                            {%- assign savings_percent = savings | times: 100 | divided_by: complementary_product.compare_at_price -%}
+                            {{ savings_percent }}%
+                          </div>
+                        </li>
+                      </ul>
+                    {% endif %}
+                  </a>
+
+                  <div class="card-content">
+                    <h3 class="h3">
+                      <a href="{{ complementary_product.url }}" class="card-title">{{ complementary_product.title }}</a>
+                    </h3>
+                    <div class="card-price">
+                      {% if complementary_product.compare_at_price > complementary_product.price %}
+                        <del class="del">{{ complementary_product.compare_at_price | money }}</del>
+                      {% endif %}
+                      <data class="price" value="{{ complementary_product.price }}">
+                        {% if complementary_product.price_varies %}
+                          {%- assign price_min = complementary_product.price_min | money -%}
+                          <span class="price-from">{{ 'products.product.price.from_price_html' | t: price: price_min }}</span>
+                        {% else %}
+                          {{ complementary_product.price | money }}
+                        {% endif %}
+                      </data>
+                    </div>
+                    {% assign first_variant = complementary_product.selected_or_first_available_variant %}
+                    {% if first_variant.unit_price_measurement %}
+                      <div class="unit-price">
+                        {{ first_variant.unit_price | money }}/{{ first_variant.unit_price_measurement.reference_value }}{{ first_variant.unit_price_measurement.reference_unit }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </product-recommendations>
+  {% endif %}
+</div>
+
+<style>
+
+  .complementary-products__heading {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .complementary-products__description {
+    text-align: center;
+    font-size: var(--fs-4);
+    color: var(--granite-gray);
+    max-width: 62ch;
+    margin: 0 auto 20px;
+  }
+
+  .complementary-products .title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .complementary-products__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 15px;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .complementary-products__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .complementary-products__grid > li {
+    flex: 0 0 calc(25% - 12px);
+    scroll-snap-align: start;
+  }
+
+  .complementary-products .product-card {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .complementary-products .card-action-btn {
+    background-color: #ffffff;
+    color: var(--smokey-black);
+  }
+
+  .complementary-products .badge.cyan {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  @media (max-width: 1024px) {
+    .complementary-products__grid > li {
+      flex: 0 0 calc(33.33% - 10px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .complementary-products__grid > li {
+      flex: 0 0 calc(50% - 8px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .complementary-products__grid > li {
+      flex: 0 0 100%;
+    }
+  }
+
+  .complementary-products .card-content {
+    padding: 0;
+  }
+
+  .complementary-products .unit-price {
+    margin-top: 6px;
+    font-size: var(--fs-6);
+    color: var(--spanish-gray);
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Complementary products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pairs well with"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Complete your look with these complementary products"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "label": "Maximum products to show",
+      "default": 4
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complementary products",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

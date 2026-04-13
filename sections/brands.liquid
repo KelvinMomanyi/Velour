@@ -1,0 +1,549 @@
+<section class="clients color-scheme-{{ section.settings.color_scheme }}" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %} padding-block: {{ section.settings.section_padding_vertical }}px;" id="client">
+  <div class="carousel-wrapper">
+    {% if section.settings.show_title %}
+    <div class="carousel-title">
+      <h2 class="section-title" style="font-size: {{ section.settings.title_font_size }}px; margin-bottom: {{ section.settings.title_margin_bottom }}px;">
+        {{ section.settings.section_title }}
+      </h2>
+    </div>
+    {% endif %}
+
+    <ul class="carousel" style="gap: {{ section.settings.logo_gap }}px;">
+      {% if section.blocks.size == 0 %}
+      <!-- Default logos when no blocks -->
+      <li>{{ 'product-1' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-2' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-3' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-4' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-5' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-6' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'image' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <!-- Duplicate items for seamless loop -->
+      <li>{{ 'product-1' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-2' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-3' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-4' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-5' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'product-6' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+      <li>{{ 'image' | placeholder_svg_tag: 'logo-placeholder' }}</li>
+    {% else %}
+        <!-- Custom logos from blocks -->
+        {% for block in section.blocks %}
+          {% if block.settings.logo_image %}
+            <li>
+              {% if block.settings.logo_link != blank %}
+                <a href="{{ block.settings.logo_link }}" target="{{ block.settings.link_target }}">
+                  <img src="{{ block.settings.logo_image | image_url: width: 300 }}" 
+                    srcset="{{ block.settings.logo_image | image_url: width: 150 }} 150w,
+                            {{ block.settings.logo_image | image_url: width: 300 }} 300w"
+                    sizes="{{ section.settings.logo_width }}px"
+                    width="{{ section.settings.logo_width }}"
+                    height="auto"
+                    alt="{{ block.settings.logo_alt }}" 
+                    style="width: {{ section.settings.logo_width }}px;" />
+                </a>
+              {% else %}
+                <img src="{{ block.settings.logo_image | image_url }}" width="{{ section.settings.logo_width }}" height="auto" alt="{{ block.settings.logo_alt }}" style="width: {{ section.settings.logo_width }}px;" />
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+        <!-- Duplicate for seamless loop -->
+        {% for block in section.blocks %}
+          {% if block.settings.logo_image %}
+            <li>
+              {% if block.settings.logo_link != blank %}
+                <a href="{{ block.settings.logo_link }}" target="{{ block.settings.link_target }}">
+                  <img src="{{ block.settings.logo_image | image_url: width: 300 }}" 
+                    srcset="{{ block.settings.logo_image | image_url: width: 150 }} 150w,
+                            {{ block.settings.logo_image | image_url: width: 300 }} 300w"
+                    sizes="{{ section.settings.logo_width }}px"
+                    width="{{ section.settings.logo_width }}"
+                    height="auto"
+                    alt="{{ block.settings.logo_alt }}" 
+                    style="width: {{ section.settings.logo_width }}px;" />
+                </a>
+              {% else %}
+                <img src="{{ block.settings.logo_image | image_url }}" width="{{ section.settings.logo_width }}" height="auto" alt="{{ block.settings.logo_alt }}" style="width: {{ section.settings.logo_width }}px;" />
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Clients Section */
+  .clients {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: {{ section.settings.section_height }}px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    transition: transform {{ section.settings.transition_speed }}s linear;
+    /* Performance: removed will-change:transform — unnecessary GPU layer */
+    padding: 0;
+    margin: 0;
+  }
+
+  .carousel-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-title .section-title {
+    font-family: {{ section.settings.title_font_family }};
+    font-weight: {{ section.settings.title_font_weight }};
+    text-align: center;
+  }
+
+  .clients li {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .clients li img,
+  .clients li svg {
+    margin: 2px;
+    fill: currentColor;
+    {% if section.settings.enable_grayscale %}
+    filter: grayscale({{ section.settings.grayscale_amount }}%);
+    {% endif %}
+    transition: transform {{ section.settings.hover_transition_speed }}s ease, filter {{ section.settings.hover_transition_speed }}s ease;
+    opacity: {{ section.settings.logo_opacity }};
+    width: {{ section.settings.logo_width }}px;
+    height: auto;
+  }
+
+  {% if section.settings.enable_hover_effect %}
+  .clients li img:hover,
+  .clients li svg:hover {
+    filter: grayscale(0%);
+    transform: scale({{ section.settings.hover_scale | divided_by: 10.0 }});
+    opacity: 1;
+  }
+  {% endif %}
+
+  .clients li a {
+    display: block;
+    line-height: 0;
+  }
+
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .clients {
+      min-height: {{ section.settings.section_height_mobile }}px;
+    }
+
+    .carousel {
+      gap: {{ section.settings.logo_gap_mobile }}px !important;
+    }
+
+    .clients li img,
+    .clients li svg {
+      width: {{ section.settings.logo_width_mobile }}px !important;
+    }
+
+    .carousel-title .section-title {
+      font-size: {{ section.settings.title_font_size_mobile }}px !important;
+    }
+  }
+</style>
+
+<script>  
+(function() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.querySelector(".carousel");
+    const items = document.querySelectorAll(".carousel li");
+    
+    if (!carousel || items.length === 0) return;
+
+    const totalItems = items.length;
+    const logoGap = {{ section.settings.logo_gap }};
+    const scrollSpeed = {{ section.settings.scroll_speed }};
+    const enableAutoScroll = {{ section.settings.enable_auto_scroll | json }};
+    const pauseOnHover = {{ section.settings.pause_on_hover | json }};
+
+    let itemWidth, resetPosition, scrollPosition = 0;
+    let isPaused = false;
+    let isVisible = false; /* Performance: track visibility */
+    let animationFrame;
+
+    function moveCarousel() {
+      if (!isPaused && enableAutoScroll && isVisible) {
+        scrollPosition -= scrollSpeed;
+        carousel.style.transform = `translateX(${scrollPosition}px)`;
+
+        if (scrollPosition <= resetPosition) {
+          scrollPosition = 0;
+          carousel.style.transition = "none";
+          carousel.style.transform = `translateX(${scrollPosition}px)`;
+
+          setTimeout(() => {
+            carousel.style.transition = "transform {{ section.settings.transition_speed }}s linear";
+          }, 10);
+        }
+      }
+
+      animationFrame = requestAnimationFrame(moveCarousel);
+    }
+
+    // Pause on hover
+    if (pauseOnHover) {
+      carousel.addEventListener("mouseenter", () => {
+        isPaused = true;
+      });
+
+      carousel.addEventListener("mouseleave", () => {
+        isPaused = false;
+      });
+    }
+
+    /* Performance: only animate when section is visible using IntersectionObserver */
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible && !animationFrame && enableAutoScroll && itemWidth) {
+        moveCarousel();
+      } else if (!isVisible && animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+    }, { threshold: 0 });
+    visibilityObserver.observe(carousel.closest('.clients') || carousel);
+
+    // Defer measurement to avoid forced reflow during DOMContentLoaded
+    requestAnimationFrame(() => {
+      itemWidth = items[0].offsetWidth + logoGap;
+      resetPosition = -itemWidth * totalItems / 2;
+
+      // Start animation
+      if (enableAutoScroll && isVisible) {
+        moveCarousel();
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Logo list",
+  "settings": [
+    {
+      "type": "color_scheme","id": "color_scheme","label": "Color scheme","default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Height (Desktop)",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "section_height_mobile",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Height (Mobile)",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "section_padding_vertical",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding (Top & Bottom)",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Heading",
+      "default": "Our Brands"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading font size (Desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading font size (Mobile)",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "title_font_family",
+      "label": "Heading font family",
+      "options": [
+        { "value": "var(--ff-mr_de_haviland)", "label": "Mr De Haviland (Default)" },
+        { "value": "Arial, sans-serif", "label": "Arial" },
+        { "value": "Georgia, serif", "label": "Georgia" },
+        { "value": "'Times New Roman', serif", "label": "Times New Roman" },
+        { "value": "'Courier New', monospace", "label": "Courier New" },
+        { "value": "inherit", "label": "Inherit from Theme" }
+      ],
+      "default": "var(--ff-mr_de_haviland)"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Heading font weight",
+      "options": [
+        { "value": "300", "label": "Light (300)" },
+        { "value": "400", "label": "Normal (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi-Bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "300"
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Heading bottom margin",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width (Desktop)",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 40,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Width (Mobile)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Space Between Logos (Desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "logo_gap_mobile",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Space Between Logos (Mobile)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "label": "Logo Opacity",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Grayscale Effect"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_grayscale",
+      "label": "Enable Grayscale Effect",
+      "default": true,
+      "info": "Logos will be grayscale by default"
+    },
+    {
+      "type": "range",
+      "id": "grayscale_amount",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Grayscale Amount",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Hover Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_hover_effect",
+      "label": "Enable Hover Effect",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hover_scale",
+      "min": 10,
+      "max": 15,
+      "step": 1,
+      "label": "Hover Scale",
+      "default": 11,
+      "info": "10 = 1.0x (no scale), 11 = 1.1x, 15 = 1.5x"
+    },
+    {
+      "type": "range",
+      "id": "hover_transition_speed",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Hover Transition Speed",
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Carousel Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_auto_scroll",
+      "label": "Enable Auto-Scroll",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 0.1,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Scroll Speed",
+      "default": 1,
+      "info": "Higher = faster scrolling"
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "min": 0.1,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Transition Speed",
+      "default": 0.5
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause Carousel on Hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand_logo",
+      "name": "Brand Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo Image"
+        },
+        {
+          "type": "text",
+          "id": "logo_alt",
+          "label": "Logo Alt Text",
+          "default": "Brand Logo",
+          "info": "Describe the logo for accessibility"
+        },
+        {
+          "type": "url",
+          "id": "logo_link",
+          "label": "Logo Link (Optional)",
+          "info": "Leave empty if logo shouldn't be clickable"
+        },
+        {
+          "type": "select",
+          "id": "link_target",
+          "label": "Link Target",
+          "options": [
+            { "value": "_self", "label": "Same Window" },
+            { "value": "_blank", "label": "New Window" }
+          ],
+          "default": "_self"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo list",
+      "category": "Marketing"
+    }
+  ]
+}
+{% endschema %}
+
+
+

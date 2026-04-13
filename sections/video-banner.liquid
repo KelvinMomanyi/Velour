@@ -1,0 +1,662 @@
+<section class="section about color-scheme-{{ section.settings.color_scheme }}" id="about-{{ section.id }}" data-section-id="{{ section.id }}" aria-label="about" data-aos="fade-up" style="{% render 'color-scheme-styles', scheme: section.settings.color_scheme %}">
+  <div class="container"> 
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          <h2 class="section-title" {{ block.shopify_attributes }}>{{ block.settings.title }}</h2>
+        {%- when 'description' -%}
+          <p class="section-text" {{ block.shopify_attributes }}>{{ block.settings.info }}</p>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+  
+  <div class="about-card">
+    <figure class="card-banner img-holder" style="--width: 1380; --height: 550;">
+      {% assign uploaded_video = section.settings.uploaded_video %}
+      {% assign raw_video_url = section.settings.video_url | strip %}
+      {% assign fallback_video_file = section.settings.video_file | strip %}
+      {% assign video_url_lower = raw_video_url | downcase %}
+      {% assign is_youtube = false %}
+      {% assign is_vimeo = false %}
+      {% assign is_direct_video = false %}
+      {% assign embed_url = '' %}
+
+      {% if raw_video_url != blank %}
+        {% if video_url_lower contains 'youtube.com' or video_url_lower contains 'youtu.be' %}
+          {% assign is_youtube = true %}
+          {% assign youtube_id = '' %}
+          {% if raw_video_url contains 'youtu.be/' %}
+            {% assign youtube_id = raw_video_url | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first | split: '#' | first %}
+          {% elsif raw_video_url contains 'watch?v=' %}
+            {% assign youtube_id = raw_video_url | split: 'watch?v=' | last | split: '&' | first | split: '#' | first %}
+          {% elsif raw_video_url contains '/shorts/' %}
+            {% assign youtube_id = raw_video_url | split: '/shorts/' | last | split: '?' | first | split: '&' | first | split: '#' | first %}
+          {% elsif raw_video_url contains '/embed/' %}
+            {% assign youtube_id = raw_video_url | split: '/embed/' | last | split: '?' | first | split: '&' | first | split: '#' | first %}
+          {% endif %}
+          {% if youtube_id != blank %}
+            {% assign embed_url = 'https://www.youtube.com/embed/' | append: youtube_id | append: '?playsinline=1&rel=0' %}
+            {% if section.settings.video_autoplay %}
+              {% assign embed_url = embed_url | append: '&autoplay=1' %}
+            {% endif %}
+            {% if section.settings.video_muted %}
+              {% assign embed_url = embed_url | append: '&mute=1' %}
+            {% endif %}
+            {% if section.settings.video_loop %}
+              {% assign embed_url = embed_url | append: '&loop=1&playlist=' | append: youtube_id %}
+            {% endif %}
+          {% endif %}
+        {% elsif video_url_lower contains 'vimeo.com' %}
+          {% assign is_vimeo = true %}
+          {% assign vimeo_id = raw_video_url | split: '/' | last | split: '?' | first | split: '&' | first | split: '#' | first %}
+          {% if vimeo_id != blank %}
+            {% assign embed_url = 'https://player.vimeo.com/video/' | append: vimeo_id | append: '?title=0&byline=0&portrait=0' %}
+            {% if section.settings.video_autoplay %}
+              {% assign embed_url = embed_url | append: '&autoplay=1' %}
+            {% endif %}
+            {% if section.settings.video_loop %}
+              {% assign embed_url = embed_url | append: '&loop=1' %}
+            {% endif %}
+            {% if section.settings.video_muted %}
+              {% assign embed_url = embed_url | append: '&muted=1' %}
+            {% endif %}
+          {% endif %}
+        {% elsif video_url_lower contains '.mp4' or video_url_lower contains '.webm' or video_url_lower contains '.ogg' or video_url_lower contains '.mov' or video_url_lower contains '.m3u8' %}
+          {% assign is_direct_video = true %}
+        {% endif %}
+      {% endif %}
+
+      {% if uploaded_video != blank %}
+        <video
+          data-promo-video="{{ section.id }}"
+          width="1170"
+          height="550"
+          class="img-cover"
+          {% if section.settings.video_autoplay %}autoplay{% endif %}
+          {% if section.settings.video_loop %}loop{% endif %}
+          {% if section.settings.video_muted %}muted{% endif %}
+          playsinline
+        >
+          {% for source in uploaded_video.sources %}
+            {%- # theme-check-disable RemoteAsset -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+            {%- # theme-check-enable RemoteAsset -%}
+          {% endfor %}
+          Your browser does not support the video tag.
+        </video>
+      {% elsif embed_url != blank and is_youtube or is_vimeo %}
+        {%- comment -%} Performance: YouTube/Vimeo facade — loads iframe only on click instead of eagerly {%- endcomment -%}
+        <div class="video-facade img-cover" data-video-facade data-embed-url="{{ embed_url }}" role="button" aria-label="Play video" tabindex="0" style="cursor:pointer;position:relative;width:100%;height:100%;background:#000;">
+          {% if is_youtube and youtube_id != blank %}
+            {%- # theme-check-disable RemoteAsset -%}
+            <img
+              src="https://i.ytimg.com/vi/{{ youtube_id }}/hqdefault.jpg"
+              alt="{{ section.settings.title | default: 'Video' | escape }}"
+              class="img-cover"
+              loading="eager"
+              fetchpriority="high"
+              width="1170"
+              height="550"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+            {%- # theme-check-enable RemoteAsset -%}
+          {% endif %}
+          <svg class="video-facade__play" viewBox="0 0 68 48" width="68" height="48" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;opacity:0.85;transition:opacity 0.2s;" aria-hidden="true">
+            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/>
+            <path d="M45 24 27 14v20" fill="#fff"/>
+          </svg>
+        </div>
+      {% else %}
+        <video
+          data-promo-video="{{ section.id }}"
+          width="1170"
+          height="550"
+          class="img-cover"
+          {% if section.settings.video_autoplay %}autoplay{% endif %}
+          {% if section.settings.video_loop %}loop{% endif %}
+          {% if section.settings.video_muted %}muted{% endif %}
+          playsinline
+        >
+          {% if is_direct_video and raw_video_url != blank %}
+            {%- # theme-check-disable RemoteAsset -%}
+            <source src="{{ raw_video_url }}" type="video/mp4">
+            {%- # theme-check-enable RemoteAsset -%}
+          {% elsif fallback_video_file != blank %}
+            <source src="{{ fallback_video_file | default: 'Ink.mp4' | asset_url }}" type="video/mp4">
+          {% endif %}
+          Your browser does not support the video tag.
+        </video>
+      {% endif %}
+    </figure>
+
+    <div class="box" data-text-position="{{ section.settings.text_position }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'animated_text' -%}
+          {%- assign words = block.settings.animation_text | split: ' ' -%}
+          {%- for word in words -%}
+            <span {{ block.shopify_attributes }}>{{ word }}</span>
+            {%- unless forloop.last -%}<span>&nbsp;</span>{%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .collection {
+    padding-block-start: 0; 
+    margin-top: 5%;
+  }
+
+  .collection-list {
+    display: grid;
+    gap: 15px;
+  }
+
+  .collection-card {
+    background-color: var(--light-gray);
+    min-height: 400px;
+    padding: 40px;
+    padding-block-end: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title {
+    color: inherit;
+    margin-block-end: 20px;
+  }
+
+  .section-text {
+    color: inherit;
+  }
+
+  .collection-card .card-title {
+    margin-block-end: 12px;
+  }
+
+  .collection-card .card-text {
+    color: var(--black);
+    font-size: var(--fs-6);
+    font-weight: var(--fs-600);
+    margin-block-end: auto;
+  }
+
+  .scents {
+    font-size: large;
+    font-family: var(--ff-roboto);
+  }
+
+  .about {
+    /* Base section padding only */
+  }
+
+  .about .container {
+    position: relative;
+  }
+
+  /* Performance: removed will-change:transform and translate3d(0,0,0) — unnecessary GPU layer promotion */
+  .about-card {
+    position: relative;
+  }
+
+  .box {
+    position: fixed;
+    top: {{ section.settings.text_position }};
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .box span {
+    font-family: var(--ff-roboto);
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: 0px 0px 5px rgba(31, 29, 46, 0.55);
+    font-size: 4rem;
+    text-transform: uppercase;
+    color: inherit;
+    display: inline-block;
+  }
+
+  /* Video facade styles */
+  .video-facade:hover .video-facade__play { opacity: 1 !important; }
+
+  /* Responsive for larger than 575px screen */
+  @media screen and (max-width: 575px) {
+    .scents {
+      font-size: medium;
+    }
+
+    .box {
+      top: 70%;
+    }
+
+    .box span {
+      font-size: 2rem;
+    }
+  }
+
+  /* Responsive for larger than 768px screen */
+  @media screen and (min-width: 768px) {
+    .flex-item {
+      max-width: calc(50% - 15px);
+    }
+
+    .collection-card {
+      min-height: 450px;
+    }
+
+    .scents {
+      font-size: large;
+    }
+  }
+
+  /* Responsive for larger than 992px screen */
+  @media screen and (min-width: 992px) {
+    .scrollbar-item {
+      min-width: calc(33.33% - 20px);
+    }
+
+    .flex-item {
+      max-width: calc(33.33% - 20px);
+    }
+
+    .collection-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .scents {
+      font-size: large;
+    }
+  }
+
+  /* Responsive for larger than 1200px screen */
+  @media screen and (min-width: 1200px) {
+    .scrollbar-item {
+      min-width: calc(20% - 24px);
+    }
+
+    .flex-item {
+      max-width: calc(33.33% - 20px);
+    }
+
+    .scents {
+      font-size: large;
+    }
+  }
+</style>
+
+<script>
+(function() {
+function initSlowMotionEffect() {
+  const sectionElement = document.querySelector('[data-section-id="{{ section.id }}"]');
+  if (!sectionElement) return;
+  const boxElement = sectionElement.querySelector('.box');
+  if (!boxElement) return;
+  const spans = boxElement.querySelectorAll('span');
+  if (spans.length === 0) return;
+  
+  // Get animation settings from the animated text block
+  {%- assign anim_block = section.blocks | where: "type", "animated_text" | first -%}
+  {%- if anim_block -%}
+    const animationSpeed = {{ anim_block.settings.animation_speed | default: 1200 }};
+    const maxBlur = {{ anim_block.settings.animation_blur | default: 10 }};
+    const maxScale = {{ anim_block.settings.animation_scale | default: 3 }};
+  {%- else -%}
+    const animationSpeed = 1200;
+    const maxBlur = 10;
+    const maxScale = 3;
+  {%- endif -%}
+  
+  // Original effect parameters
+  let start = -300;
+  let end = 300;
+  let steps = spans.length;
+  let stepSize = (end - start) / (steps - 1);
+  
+  // Set initial state - shortened transition for "on scroll" feel
+  spans.forEach((span, index) => {
+    span.style.transition = `transform 0.2s ease-out, filter 0.2s ease-out, opacity 0.2s ease-out`;
+    span.style.transform = 'translateX(0%) scale(1)';
+    span.style.filter = 'blur(0px)';
+    span.style.opacity = '1';
+  });
+  
+  // Create intersection observer
+  const boxObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const isIntersecting = entry.isIntersecting;
+      const rect = entry.boundingClientRect;
+      const isComingFromTop = rect.top > 0;
+      const isLeavingToTop = rect.bottom < window.innerHeight && !isIntersecting;
+      
+      // Batch writes in requestAnimationFrame instead of multiple setTimeouts
+      requestAnimationFrame(() => {
+        spans.forEach((span, index) => {
+          const delay = index * 50;
+          
+          setTimeout(() => {
+            if (!isIntersecting) {
+              const translateX = start + stepSize * index;
+              let finalTranslateX = isComingFromTop ? translateX : -translateX;
+              
+              span.style.transform = `translateX(${finalTranslateX}%) scale(${maxScale})`;
+              span.style.filter = `blur(${maxBlur}px)`;
+              span.style.opacity = '0';
+            }
+          }, delay);
+        });
+      });
+    });
+  }, {
+    threshold: [0, 0.1, 0.3, 0.7, 1],
+    rootMargin: '100px 0px 100px 0px'
+  });
+  
+  boxObserver.observe(boxElement);
+  
+  // Performance: only update scroll effect when section is visible
+  let isBoxVisible = false;
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    isBoxVisible = entries[0].isIntersecting;
+  }, { threshold: 0 });
+  visibilityObserver.observe(boxElement);
+
+  // Fine-tuned scroll-based animation
+  function updateInViewEffect() {
+    if (!isBoxVisible) return; // Performance: skip when off-screen
+    
+    // Read phase
+    const rect = boxElement.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    if (rect.top <= windowHeight && rect.bottom >= 0) {
+      const elementCenter = rect.top + rect.height / 2;
+      const viewportCenter = windowHeight / 2;
+      const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
+      const maxDistance = windowHeight / 2;
+      const centerRatio = 1 - Math.min(distanceFromCenter / maxDistance, 1);
+      
+      // Write phase
+      spans.forEach((span, index) => {
+        if (centerRatio > 0.8) {
+          span.style.transform = 'translateX(0%) scale(1)';
+          span.style.filter = 'blur(0px)';
+          span.style.opacity = '1';
+        } else {
+          // Linear mapping as we move away from center
+          const strength = 1 - ((centerRatio - 0.3) / 0.5); // 0 at 0.8 centerRatio, 1 at 0.3 centerRatio
+          const clampedStrength = Math.max(0, Math.min(1, strength));
+          
+          const translateX = (start + stepSize * index) * clampedStrength * 0.5;
+          const scale = 1 + (clampedStrength * (maxScale - 1));
+          const blur = clampedStrength * maxBlur;
+          const opacity = 1 - (clampedStrength * 0.8);
+          
+          span.style.transform = `translateX(${translateX}%) scale(${scale})`;
+          span.style.filter = `blur(${blur}px)`;
+          span.style.opacity = opacity;
+        }
+      });
+    }
+  }
+  
+  // Throttled scroll listener using rAF instead of setTimeout
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        updateInViewEffect();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+  updateInViewEffect();
+}
+
+function initVideoVisibility() {
+  const video = document.querySelector('[data-promo-video="{{ section.id }}"]');
+  if (!video) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        video.currentTime = 1;
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(video);
+}
+
+/* Performance: YouTube/Vimeo facade — load iframe only on click */
+function initVideoFacade() {
+  const facades = document.querySelectorAll('[data-video-facade]');
+  facades.forEach(function(facade) {
+    function loadIframe() {
+      const embedUrl = facade.getAttribute('data-embed-url');
+      if (!embedUrl) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      iframe.className = 'img-cover';
+      iframe.width = '1170';
+      iframe.height = '550';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0;';
+      facade.replaceWith(iframe);
+    }
+    facade.addEventListener('click', loadIframe, { once: true });
+    facade.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadIframe(); }
+    }, { once: true });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  initVideoVisibility();
+  initSlowMotionEffect();
+  initVideoFacade();
+});
+
+document.addEventListener("shopify:section:load", function(event) {
+  if (event.detail.sectionId === '{{ section.id }}') {
+    initVideoVisibility();
+    initSlowMotionEffect();
+    initVideoFacade();
+  }
+});
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Video banner",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "video",
+      "id": "uploaded_video",
+      "label": "Uploaded video",
+      "info": "Preferred source. If set, this is used before Video URL."
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "default": "https://youtu.be/_9VUPq3SxOc?list=TLGGn1R2QQNDf6owOTEwMjAyNQ",
+      "info": "Fallback source when no uploaded video is set. Supports YouTube, Vimeo, and direct video URLs (e.g., .mp4)."
+    },
+    {
+      "type": "text",
+      "id": "video_file",
+      "label": "OR Video File Name",
+      "default": "Ink.mp4",
+      "info": "Upload video to Files in Shopify admin, then enter filename here (e.g., video.mp4). Used only if Video URL is empty."
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "Autoplay Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_muted",
+      "label": "Mute Video",
+      "default": true,
+      "info": "Video must be muted for autoplay to work"
+    },
+    {
+      "type": "header",
+      "content": "Text Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text Position",
+      "options": [
+        {"value": "40%", "label": "Upper Center"},
+        {"value": "50%", "label": "Center"},
+        {"value": "60%", "label": "Lower Center"},
+        {"value": "70%", "label": "Bottom Third"}
+      ],
+      "default": "60%"
+    },
+    {
+      "type": "range",
+      "id": "animation_scale",
+      "label": "Maximum Scale",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 3,
+      "info": "How large text grows when scrolling away"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Unveil Your Essence"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "info",
+          "label": "Description",
+          "default": "When you start with a portrait and search for a pure form, a clear volume, through successive eliminations, you arrive inevitably at the egg. Likewise, starting with the egg and following the same process in reverse, one finishes with the portrait."
+        }
+      ]
+    },
+    {
+      "type": "animated_text",
+      "name": "Animated Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "animation_text",
+          "label": "Animation Text",
+          "default": "scent that you can wear",
+          "info": "Words will be animated individually (separated by spaces)"
+        },
+        {
+          "type": "range",
+          "id": "animation_speed",
+          "label": "Animation Speed (ms)",
+          "min": 500,
+          "max": 3000,
+          "step": 100,
+          "default": 1200
+        },
+        {
+          "type": "range",
+          "id": "animation_blur",
+          "label": "Maximum Blur (px)",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "animation_scale",
+          "label": "Maximum Scale",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "default": 3
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video banner",
+      "category": "Banners",
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "title": "Unveil Your Essence"
+          }
+        },
+        {
+          "type": "description",
+          "settings": {
+            "info": "When you start with a portrait and search for a pure form, a clear volume, through successive eliminations, you arrive inevitably at the egg. Likewise, starting with the egg and following the same process in reverse, one finishes with the portrait."
+          }
+        },
+        {
+          "type": "animated_text",
+          "settings": {
+            "animation_text": "scent that you can wear",
+            "animation_speed": 1200,
+            "animation_blur": 10,
+            "animation_scale": 3
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
