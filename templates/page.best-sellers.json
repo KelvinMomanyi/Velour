@@ -1,32 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero-sliders": {
       "type": "hero-slideshow",
-      "settings": {
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "hero-slide-1": {
           "type": "slide",
           "settings": {
+            "hero_image": "shopify://shop_images/perfume-collection-image-that-fits-the-space-well.png",
             "brand_name": "Luxury Essence",
             "starting_price": "$29.99",
-            "button_label": "Shop now"
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "hero-slide-2": {
           "type": "slide",
           "settings": {
+            "hero_image": "shopify://shop_images/generate-a-classy-image-of-the-perfume-boss-make-it-a-high-quality-image-that-fits-the-sapce-well.png",
             "brand_name": "Scentra Midnight",
             "starting_price": "$34.99",
-            "button_label": "Shop now"
+            "button_label": "Shop now",
+            "button_link": ""
           }
         }
       },
       "block_order": [
         "hero-slide-1",
         "hero-slide-2"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
     },
     "best-sellers-products": {
       "type": "best-sellers-products",
@@ -34,14 +47,12 @@
         "color_scheme": "scheme-1",
         "show_heading": true,
         "heading": "Best sellers",
-        "subheading": "Our most-loved fragrances this season."
+        "subheading": "Our most-loved fragrances this season.",
+        "best_sellers_collection": ""
       }
     },
     "best-sellers-info": {
       "type": "best-sellers-info",
-      "settings": {
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "info-features": {
           "type": "features_card",
@@ -82,7 +93,8 @@
             "description": "On your first purchase of any best seller.",
             "code_label": "Use code:",
             "code_value": "BEST15",
-            "button_label": "Shop now"
+            "button_label": "Shop now",
+            "button_link": ""
           }
         }
       },
@@ -90,7 +102,10 @@
         "info-features",
         "info-reviews",
         "info-offer"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
