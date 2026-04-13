@@ -12,6 +12,16 @@
     "shopHeader": {
       "type": "shop-header",
       "blocks": {
+        "hero_section_TdqK8a": {
+          "type": "hero_section",
+          "settings": {
+            "hero_image": "shopify://shop_images/r2.jpg",
+            "brand_name": "Gioi Armani",
+            "starting_price": "$17.99",
+            "shop_now_link": "/",
+            "shop_now_text": "Shop Now"
+          }
+        },
         "hero_section_RxAE33": {
           "type": "hero_section",
           "settings": {
@@ -44,6 +54,7 @@
         }
       },
       "block_order": [
+        "hero_section_TdqK8a",
         "hero_section_RxAE33",
         "hero_section_e83CN8",
         "hero_section_TyaJJq"
