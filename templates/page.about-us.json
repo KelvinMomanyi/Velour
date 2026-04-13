@@ -1,16 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero-wide": {
       "type": "hero-wide",
-      "settings": {
-        "eyebrow": "Our story",
-        "title": "About",
-        "highlight": "Scentra",
-        "subtitle": "<p>We craft modern scents that feel timeless, designed for everyday rituals.</p>",
-        "overlay_opacity": 35,
-        "content_alignment": "left",
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "hero-button-1": {
           "type": "button",
@@ -50,19 +50,20 @@
         "hero-button-2",
         "hero-social-1",
         "hero-social-2"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Our story",
+        "title": "About",
+        "highlight": "Scentra",
+        "subtitle": "<p>We craft modern scents that feel timeless, designed for everyday rituals.</p>",
+        "background_image": "shopify://shop_images/r18.jpg",
+        "overlay_opacity": 35,
+        "content_alignment": "left",
+        "color_scheme": "scheme-4"
+      }
     },
     "about-story": {
       "type": "about-story",
-      "settings": {
-        "eyebrow": "Crafted with intention",
-        "heading": "The essence of timeless fragrance",
-        "body": "<p>Every blend is tuned to evoke memory and emotion, balancing bold notes with refined clarity.</p>",
-        "image_position": "left",
-        "established_label": "Est.",
-        "established_value": "2019",
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "story-feature-1": {
           "type": "feature",
@@ -90,16 +91,20 @@
         "story-feature-1",
         "story-feature-2",
         "story-feature-3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Crafted with intention",
+        "heading": "The essence of timeless fragrance",
+        "body": "<p>Every blend is tuned to evoke memory and emotion, balancing bold notes with refined clarity.</p>",
+        "image": "shopify://shop_images/gallery-6.jpg",
+        "image_position": "left",
+        "established_label": "Est.",
+        "established_value": "2019",
+        "color_scheme": "scheme-1"
+      }
     },
     "about-highlights": {
       "type": "about-highlights",
-      "settings": {
-        "heading": "What makes us different",
-        "subheading": "Thoughtful sourcing, intentional blends, and a ritual-first mindset.",
-        "columns": "3",
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "highlight-1": {
           "type": "highlight",
@@ -133,38 +138,47 @@
         "highlight-1",
         "highlight-2",
         "highlight-3"
-      ]
+      ],
+      "settings": {
+        "heading": "What makes us different",
+        "subheading": "Thoughtful sourcing, intentional blends, and a ritual-first mindset.",
+        "columns": "3",
+        "color_scheme": "scheme-1"
+      }
     },
     "about-collections": {
       "type": "about-collections",
-      "settings": {
-        "heading": "Featured collections",
-        "subheading": "Explore signature scents for every moment.",
-        "show_description": true,
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "collection-1": {
           "type": "collection",
           "settings": {
+            "collection": "best-sellers",
+            "image": "shopify://shop_images/aboutUS-banner.jpg",
             "title": "Executive Collection",
             "description": "Sophisticated profiles for focused, confident days.",
+            "link": "",
             "cta_label": "Shop collection"
           }
         },
         "collection-2": {
           "type": "collection",
           "settings": {
+            "collection": "gucci",
+            "image": "shopify://shop_images/b3.jpg",
             "title": "Casual Luxe",
             "description": "Everyday essentials with premium comfort.",
+            "link": "",
             "cta_label": "Shop collection"
           }
         },
         "collection-3": {
           "type": "collection",
           "settings": {
+            "collection": "juliette-has-a-gun",
+            "image": "shopify://shop_images/Y0997166_C099700897_E02_ZHC.jpg",
             "title": "Evening Elegance",
             "description": "Refined blends for unforgettable nights.",
+            "link": "",
             "cta_label": "Shop collection"
           }
         }
@@ -173,15 +187,16 @@
         "collection-1",
         "collection-2",
         "collection-3"
-      ]
+      ],
+      "settings": {
+        "heading": "Featured collections",
+        "subheading": "Explore signature scents for every moment.",
+        "show_description": true,
+        "color_scheme": "scheme-1"
+      }
     },
     "about-testimonials": {
       "type": "about-testimonials",
-      "settings": {
-        "heading": "What our customers say",
-        "subheading": "Real notes from fragrance lovers.",
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "testimonial-1": {
           "type": "testimonial",
@@ -212,16 +227,15 @@
         "testimonial-1",
         "testimonial-2",
         "testimonial-3"
-      ]
+      ],
+      "settings": {
+        "heading": "What our customers say",
+        "subheading": "Real notes from fragrance lovers.",
+        "color_scheme": "scheme-1"
+      }
     },
     "about-cta": {
       "type": "about-cta",
-      "settings": {
-        "heading": "Explore our signature collection",
-        "text": "<p>Discover the fragrance that feels like your next chapter.</p>",
-        "overlay_opacity": 35,
-        "color_scheme": "scheme-1"
-      },
       "blocks": {
         "cta-button-1": {
           "type": "button",
@@ -234,7 +248,14 @@
       },
       "block_order": [
         "cta-button-1"
-      ]
+      ],
+      "settings": {
+        "heading": "Explore our signature collection",
+        "text": "<p>Discover the fragrance that feels like your next chapter.</p>",
+        "background_image": "shopify://shop_images/r16.jpg",
+        "overlay_opacity": 35,
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
