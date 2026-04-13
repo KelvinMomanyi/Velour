@@ -27,7 +27,7 @@
           "settings": {
             "hero_image": "shopify://shop_images/r6.jpg",
             "brand_name": "Valentino",
-            "starting_price": "$17.99",
+            "starting_price": "$27.99",
             "shop_now_link": "/",
             "shop_now_text": "Shop Now"
           }
@@ -37,7 +37,7 @@
           "settings": {
             "hero_image": "shopify://shop_images/F2.jpg",
             "brand_name": "Juliette Has a Gun",
-            "starting_price": "$17.99",
+            "starting_price": "$18.99",
             "shop_now_link": "/",
             "shop_now_text": "Shop Now"
           }
