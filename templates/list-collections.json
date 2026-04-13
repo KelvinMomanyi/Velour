@@ -1,16 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections": {
-      "shopHeader": {
-        "type": "shop-header",
-        "settings": {}
+  "sections": {
+    "shopHeader": {
+      "type": "shop-header",
+      "blocks": {
+        "hero_section_RxAE33": {
+          "type": "hero_section",
+          "settings": {
+            "hero_image": "shopify://shop_images/r6.jpg",
+            "brand_name": "Valentino",
+            "starting_price": "$17.99",
+            "shop_now_link": "/",
+            "shop_now_text": "Shop Now"
+          }
+        },
+        "hero_section_e83CN8": {
+          "type": "hero_section",
+          "settings": {
+            "hero_image": "shopify://shop_images/F2.jpg",
+            "brand_name": "Juliette Has a Gun",
+            "starting_price": "$17.99",
+            "shop_now_link": "/",
+            "shop_now_text": "Shop Now"
+          }
+        },
+        "hero_section_TyaJJq": {
+          "type": "hero_section",
+          "settings": {
+            "hero_image": "shopify://shop_images/r9.jpg",
+            "brand_name": "Dior",
+            "starting_price": "$17.99",
+            "shop_now_link": "/",
+            "shop_now_text": "Shop Now"
+          }
+        }
       },
-      "shopBody":{
-        "type":"shop-body",
-        "settings":{}
+      "block_order": [
+        "hero_section_RxAE33",
+        "hero_section_e83CN8",
+        "hero_section_TyaJJq"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4"
       }
     },
-    "order": [
-      "shopHeader",
-      "shopBody"
-    ]
-  }
+    "shopBody": {
+      "type": "shop-body",
+      "settings": {
+        "color_scheme": "",
+        "eyebrow": "Shop by collection",
+        "heading": "Discover our signature collections",
+        "subheading": "Curate the collections you want to spotlight or let the section pull every collection in your store automatically.",
+        "text_alignment": "center",
+        "collection_source": "auto",
+        "collections_per_page": 12,
+        "columns_desktop": 3,
+        "image_ratio": "square",
+        "show_product_count": true,
+        "show_description": true,
+        "description_length": 110,
+        "show_cta": true,
+        "cta_label": "Shop collection",
+        "show_pagination": true
+      }
+    }
+  },
+  "order": [
+    "shopHeader",
+    "shopBody"
+  ]
+}
