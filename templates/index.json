@@ -213,6 +213,7 @@
         },
         "animated_text_1": {
           "type": "animated_text",
+          "disabled": true,
           "settings": {
             "animation_text": "scent that you can wear",
             "animation_speed": 1200,
