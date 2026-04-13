@@ -464,6 +464,7 @@
         "shipping": {
           "type": "service_card",
           "settings": {
+            "image": "shopify://shop_images/Y0997193_C099700665_E01_ZHC.webp",
             "title": "Fast Shipping",
             "description": "Global delivery in 3-5 business days.",
             "link": ""
@@ -472,6 +473,7 @@
         "payments": {
           "type": "service_card",
           "settings": {
+            "image": "shopify://shop_images/GI5_eddb03cd-3e99-4145-a0af-a9052393e396.png",
             "title": "Secure Payments",
             "description": "Your transactions are protected and encrypted.",
             "link": ""
@@ -480,6 +482,7 @@
         "returns": {
           "type": "service_card",
           "settings": {
+            "image": "shopify://shop_images/GI1.png",
             "title": "Easy Returns",
             "description": "30-day hassle-free return policy.",
             "link": ""
@@ -488,6 +491,7 @@
         "support": {
           "type": "service_card",
           "settings": {
+            "image": "shopify://shop_images/01_Lady_Vengeance_Packshot_100ml_1000x1000_crop_center_24f88bca-2313-4835-8b73-0dbc37eed6f8.webp",
             "title": "24/7 Support",
             "description": "Dedicated team to assist you anytime.",
             "link": ""
