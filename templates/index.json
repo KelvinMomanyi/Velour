@@ -362,7 +362,8 @@
     "poster": {
       "type": "poster",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-4",
+        "background_image": "shopify://shop_images/frag.jpg",
         "section_height": 600,
         "text_color": "#ffffff",
         "text_1": "DESIGNER FRAGRANCES",
