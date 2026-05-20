@@ -635,6 +635,69 @@
     "175551709675a5d6d4": {
       "type": "apps",
       "settings": {}
+    },
+    "1779294902f30b9679": {
+      "type": "apps",
+      "blocks": {
+        "tiktok_video_commerce_collection_video_feed_N3gUmy": {
+          "type": "shopify://apps/tiktok-video-commerce/blocks/collection_video_feed/019e3f87-a4d0-7625-ad8d-a6146368c291",
+          "settings": {
+            "widget_token": "",
+            "heading": "Trending in this collection",
+            "layout": "grid",
+            "theme": "auto",
+            "aspect_ratio": "9 / 16",
+            "api_path": "/apps/tvc/widgets",
+            "analytics_path": "/apps/tvc/analytics"
+          }
+        }
+      },
+      "block_order": [
+        "tiktok_video_commerce_collection_video_feed_N3gUmy"
+      ],
+      "settings": {}
+    },
+    "17792949090bd5a5bb": {
+      "type": "apps",
+      "blocks": {
+        "tiktok_video_commerce_product_video_carousel_KrPm7x": {
+          "type": "shopify://apps/tiktok-video-commerce/blocks/product_video_carousel/019e3f87-a4d0-7625-ad8d-a6146368c291",
+          "settings": {
+            "widget_token": "",
+            "heading": "See it in action",
+            "layout": "carousel",
+            "theme": "auto",
+            "aspect_ratio": "9 / 16",
+            "api_path": "/apps/tvc/widgets",
+            "analytics_path": "/apps/tvc/analytics"
+          }
+        }
+      },
+      "block_order": [
+        "tiktok_video_commerce_product_video_carousel_KrPm7x"
+      ],
+      "settings": {}
+    },
+    "1779294929744d10c9": {
+      "type": "apps",
+      "blocks": {
+        "tiktok_video_commerce_home_video_feed_7fWfMA": {
+          "type": "shopify://apps/tiktok-video-commerce/blocks/home_video_feed/019e3f87-a4d0-7625-ad8d-a6146368c291",
+          "settings": {
+            "widget_token": "",
+            "heading": "Shop the videos",
+            "layout": "grid",
+            "theme": "auto",
+            "aspect_ratio": "9 / 16",
+            "api_path": "/apps/tvc/widgets",
+            "analytics_path": "/apps/tvc/analytics"
+          }
+        }
+      },
+      "block_order": [
+        "tiktok_video_commerce_home_video_feed_7fWfMA"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -650,6 +713,9 @@
     "blog",
     "newsletter",
     "newsletter-popup",
-    "175551709675a5d6d4"
+    "175551709675a5d6d4",
+    "1779294902f30b9679",
+    "17792949090bd5a5bb",
+    "1779294929744d10c9"
   ]
 }
