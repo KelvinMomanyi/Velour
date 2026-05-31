@@ -698,6 +698,39 @@
         "tiktok_video_commerce_home_video_feed_7fWfMA"
       ],
       "settings": {}
+    },
+    "1780200545c98ccfaf": {
+      "type": "apps",
+      "blocks": {
+        "aovboost_ai_agent_7KPjCm": {
+          "type": "shopify://apps/aovboost/blocks/ai-agent/39269176-3a65-4d87-9aa9-6ab7fcdf60ad",
+          "settings": {
+            "surface": "cart_intelligence",
+            "display_mode": "slide_cart",
+            "smart_delay": 1,
+            "trigger_on_load": true,
+            "assistant_enabled": true,
+            "show_reasoning": true,
+            "redirect_to_checkout": false,
+            "free_shipping_threshold": 100,
+            "modal_background_color": "#ffffff",
+            "image_section_Background_color": "#f5f7fb",
+            "modal_border_radius": 8,
+            "modal_title_color": "#111827",
+            "modal_title_fontSize": 22,
+            "modal_price_color": "#111827",
+            "modal_price_fontSize": 18,
+            "modal_text_color": "#475569",
+            "modal_text_fontSize": 14,
+            "modal_button_color": "#111827",
+            "modal_Button_text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "aovboost_ai_agent_7KPjCm"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -716,6 +749,7 @@
     "175551709675a5d6d4",
     "1779294902f30b9679",
     "17792949090bd5a5bb",
-    "1779294929744d10c9"
+    "1779294929744d10c9",
+    "1780200545c98ccfaf"
   ]
 }
