@@ -19,7 +19,7 @@
         "settings": {
           "api_base": "/api",
           "chat_enabled": true,
-          "ai_tone": "friendly"
+          "ai_tone": "professional"
         }
       }
     },
