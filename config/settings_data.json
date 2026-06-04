@@ -12,6 +12,17 @@
     "font_heading": "rancho_n4",
     "font_body": "arapey_n4",
     "content_for_index": [],
+    "blocks": {
+      "5083484797114289327": {
+        "type": "shopify://apps/aovboost/blocks/aovboost/39269176-3a65-4d87-9aa9-6ab7fcdf60ad",
+        "disabled": false,
+        "settings": {
+          "api_base": "/api",
+          "chat_enabled": true,
+          "ai_tone": "friendly"
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
