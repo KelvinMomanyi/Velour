@@ -638,97 +638,30 @@
     },
     "1779294902f30b9679": {
       "type": "apps",
-      "blocks": {
-        "tiktok_video_commerce_collection_video_feed_N3gUmy": {
-          "type": "shopify://apps/tiktok-video-commerce/blocks/collection_video_feed/019e3f87-a4d0-7625-ad8d-a6146368c291",
-          "settings": {
-            "widget_token": "",
-            "heading": "Trending in this collection",
-            "layout": "grid",
-            "theme": "auto",
-            "aspect_ratio": "9 / 16",
-            "api_path": "/apps/tvc/widgets",
-            "analytics_path": "/apps/tvc/analytics"
-          }
-        }
-      },
-      "block_order": [
-        "tiktok_video_commerce_collection_video_feed_N3gUmy"
-      ],
       "settings": {}
     },
     "17792949090bd5a5bb": {
       "type": "apps",
-      "blocks": {
-        "tiktok_video_commerce_product_video_carousel_KrPm7x": {
-          "type": "shopify://apps/tiktok-video-commerce/blocks/product_video_carousel/019e3f87-a4d0-7625-ad8d-a6146368c291",
-          "settings": {
-            "widget_token": "",
-            "heading": "See it in action",
-            "layout": "carousel",
-            "theme": "auto",
-            "aspect_ratio": "9 / 16",
-            "api_path": "/apps/tvc/widgets",
-            "analytics_path": "/apps/tvc/analytics"
-          }
-        }
-      },
-      "block_order": [
-        "tiktok_video_commerce_product_video_carousel_KrPm7x"
-      ],
       "settings": {}
     },
     "1779294929744d10c9": {
       "type": "apps",
-      "blocks": {
-        "tiktok_video_commerce_home_video_feed_7fWfMA": {
-          "type": "shopify://apps/tiktok-video-commerce/blocks/home_video_feed/019e3f87-a4d0-7625-ad8d-a6146368c291",
-          "settings": {
-            "widget_token": "",
-            "heading": "Shop the videos",
-            "layout": "grid",
-            "theme": "auto",
-            "aspect_ratio": "9 / 16",
-            "api_path": "/apps/tvc/widgets",
-            "analytics_path": "/apps/tvc/analytics"
-          }
-        }
-      },
-      "block_order": [
-        "tiktok_video_commerce_home_video_feed_7fWfMA"
-      ],
       "settings": {}
     },
     "1780200545c98ccfaf": {
       "type": "apps",
+      "settings": {}
+    },
+    "17806529796a8e586e": {
+      "type": "apps",
       "blocks": {
-        "aovboost_ai_agent_7KPjCm": {
-          "type": "shopify://apps/aovboost/blocks/ai-agent/39269176-3a65-4d87-9aa9-6ab7fcdf60ad",
-          "settings": {
-            "surface": "cart_intelligence",
-            "display_mode": "slide_cart",
-            "smart_delay": 1,
-            "trigger_on_load": true,
-            "assistant_enabled": true,
-            "show_reasoning": true,
-            "redirect_to_checkout": false,
-            "free_shipping_threshold": 100,
-            "modal_background_color": "#ffffff",
-            "image_section_Background_color": "#f5f7fb",
-            "modal_border_radius": 8,
-            "modal_title_color": "#111827",
-            "modal_title_fontSize": 22,
-            "modal_price_color": "#111827",
-            "modal_price_fontSize": 18,
-            "modal_text_color": "#475569",
-            "modal_text_fontSize": 14,
-            "modal_button_color": "#111827",
-            "modal_Button_text_color": "#ffffff"
-          }
+        "omni_loyalty_wvomni_point_balance_XLQGVa": {
+          "type": "shopify://apps/omni-loyalty/blocks/wvomni-point-balance/d9cc5801-f586-45ee-adea-2d8f3de718b7",
+          "settings": {}
         }
       },
       "block_order": [
-        "aovboost_ai_agent_7KPjCm"
+        "omni_loyalty_wvomni_point_balance_XLQGVa"
       ],
       "settings": {}
     }
@@ -750,6 +683,7 @@
     "1779294902f30b9679",
     "17792949090bd5a5bb",
     "1779294929744d10c9",
-    "1780200545c98ccfaf"
+    "1780200545c98ccfaf",
+    "17806529796a8e586e"
   ]
 }
