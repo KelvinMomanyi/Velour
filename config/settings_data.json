@@ -13,15 +13,6 @@
     "font_body": "arapey_n4",
     "content_for_index": [],
     "blocks": {
-      "5083484797114289327": {
-        "type": "shopify://apps/aovboost/blocks/aovboost/39269176-3a65-4d87-9aa9-6ab7fcdf60ad",
-        "disabled": false,
-        "settings": {
-          "api_base": "/api",
-          "chat_enabled": true,
-          "ai_tone": "professional"
-        }
-      },
       "17856198217270181806": {
         "type": "shopify://apps/omni-loyalty/blocks/wvomni-floating-widget/d9cc5801-f586-45ee-adea-2d8f3de718b7",
         "disabled": false,
@@ -74,6 +65,28 @@
           "show_home_icons": false,
           "custom_icon_size_offset_ratio": 125,
           "allowed_all_page_type": true
+        }
+      },
+      "14454036595699212654": {
+        "type": "shopify://apps/tiktok-video-commerce/blocks/floating_video_stories/019ec58a-c297-7c40-81bf-ba9a6a004fae",
+        "disabled": false,
+        "settings": {
+          "widget_token": "",
+          "heading": "Stories",
+          "layout": "stories",
+          "theme": "auto",
+          "aspect_ratio": "9 / 16",
+          "api_path": "/apps/tvc/widgets",
+          "analytics_path": "/apps/tvc/analytics"
+        }
+      },
+      "5083484797114289327": {
+        "type": "shopify://apps/aovboost/blocks/aovboost/39269176-3a65-4d87-9aa9-6ab7fcdf60ad",
+        "disabled": true,
+        "settings": {
+          "chat_enabled": true,
+          "ai_tone": "professional",
+          "require_consent": false
         }
       }
     },
